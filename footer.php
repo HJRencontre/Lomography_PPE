@@ -1,15 +1,15 @@
 <footer>
-    <nav>  
+    <nav>
         <div class="contourBarreReseau">
             <div class="barreReseau">
-                <a href="https://www.instagram.com/lomographyfrance/"class="lienImgReseau">
-                    <img src="images/instagram.png"class="imgReseau">
+                <a href="https://www.instagram.com/lomographyfrance/" class="lienImgReseau">
+                    <img src="images/instagram.png" class="imgReseau">
                 </a>
-                <a href="https://www.facebook.com/lomographyfrance/"class="lienImgReseau">
-                    <img src="images/facebook.png"class="imgReseau">
+                <a href="https://www.facebook.com/lomographyfrance/" class="lienImgReseau">
+                    <img src="images/facebook.png" class="imgReseau">
                 </a>
-                <a href="https://mobile.twitter.com/lomographyfr"class="lienImgReseau">
-                    <img src="images/twitter.png"class="imgReseau">
+                <a href="https://mobile.twitter.com/lomographyfr" class="lienImgReseau">
+                    <img src="images/twitter.png" class="imgReseau">
                 </a>
             </div>
         </div>
@@ -26,4 +26,5 @@
     </nav>
 </footer>
 </body>
+
 </html>
