@@ -12,7 +12,7 @@
 				<input type="submit" value="Se connecter">
 			</a>
 			<a href="index.php?pn=creerUnCompte">
-				<input type="submit" value="Créer un compte">
+					<input type="submit" value="Créer un compte">
 			</a>
 		</div>
 	</div>
