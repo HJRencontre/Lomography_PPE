@@ -11,5 +11,5 @@
 	include($pn.'.php');
 	
 	include("footer.php");
-	// Erwann espèce de bg
+	// Erwann espèce de bo
 ?>
