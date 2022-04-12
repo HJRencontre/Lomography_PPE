@@ -73,5 +73,5 @@
 	}
 	/*************************************************Fin rechercher************************************/
 	include"view/view_liste_gestionObjectifsAdmin.php";
-	// Salut ca va
+	// Bonjour
 ?>
