@@ -29,16 +29,28 @@
 		
 		<tr id="ligneTab">
 			<td> Droits </td> 
-			<td> 
-					<select name = "droit"> 
-						<?php
-						foreach ($lesUsers as $unUser)
-						{
-                            // echo "<option value ='".$unUser['droit']."'>".$unUser['droit']."</option>"; 
-							echo "<option>".$unUser['droit']."</option>"; 
-						}
-						?>
-					</select>
+			<td>
+				<?php
+					if ($leUser!=null)
+					{
+						echo $leUser['droit'];
+					}
+					else
+					{
+					echo'<select name = "droit"> 
+						<option value = "user">User</option>
+						<option value = "admin">Admin</option>
+					</select>';
+					}
+				?>
+					<?php
+						// Je laisse en commentaire au cas où mais c'etait buggé :
+						// foreach ($lesUsers as $unUser)
+						// {
+                        //     // echo "<option value ='".$unUser['droit']."'>".$unUser['droit']."</option>"; 
+						// 	echo "<option>".$unUser['droit']."</option>"; 
+						// }
+					?>
 			</td>
 		</tr>
 

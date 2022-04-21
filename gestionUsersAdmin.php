@@ -1,18 +1,6 @@
 <h2 class="contentProduit"> Gestion des utilisateurs </h2>
 
 <?php
-    $unControleur->setTable("user"); 
-    if (isset($_POST['Rechercher']))
-    {
-        $tab = array("iduser","nom", "prenom", "adresse", "email", "mdp", "droit"); 
-        $mot = $_POST['mot']; 
-        $lesUsers = $unControleur->selectSearch($tab, $mot); 
-    }
-    else
-    {
-        $lesUsers = $unControleur->selectAll();
-    }
-
 	if(isset($_SESSION['email']) && $_SESSION['droit']=="admin")
 	{
 		// $unControleur->setTable("intervention"); 
@@ -34,7 +22,6 @@
 				case "edit" : 
 					$where = array("iduser"=>$iduser);
 					$leUser = $unControleur->selectWhere($where); 
-					
 					break; 
 			} 
 		}
@@ -68,6 +55,16 @@
 			$unControleur->insert($tab); 
 		}
 	}
-	 
-	require_once ("view/view_liste_gestionUsersAdmin.php"); 
+
+    if (isset($_POST['Rechercher']))
+    {
+        $tab = array("iduser","nom", "prenom", "adresse", "email", "mdp", "droit");
+        $mot = $_POST['mot']; 
+        $lesUsers = $unControleur->selectSearch($tab, $mot); 
+    }
+    else
+    {
+        $lesUsers = $unControleur->selectAll();
+    }
+	include"view/view_liste_gestionUsersAdmin.php"; 
 ?>
