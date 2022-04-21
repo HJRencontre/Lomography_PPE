@@ -1,5 +1,5 @@
 <div class="bodyIndex">
-	<img class="imgIndex"src="images/imgIndex.webp" alt="">
+	<img class="imgIndex" src="images/imgIndex.webp" alt="">
 	<div class="textIndex">
 		<div>
 			<p class="bvnIndex">Bienvenue sur le site de Lomography France</p>
