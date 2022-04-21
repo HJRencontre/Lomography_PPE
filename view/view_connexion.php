@@ -15,7 +15,7 @@
                     Mot de passe
                 </td>
                 <td>
-                    <input type="text" name="mdp">
+                    <input type="password" name="mdp">
                 </td>
             </tr>
             <tr id="ligneTab" class="boutonsConnexion">

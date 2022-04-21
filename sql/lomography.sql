@@ -74,19 +74,19 @@ create table livraison(
     primary key (idlivraison)
 );
 
-create table pointRelais(
-    idlivraison int not null,
-    nom varchar(50),
-    horaire varchar(50),
-    primary key (idlivraison),
-    foreign key (idlivraison) references livraison(idlivraison)
-);
+-- create table pointRelais(
+--     idlivraison int not null,
+--     nom varchar(50),
+--     horaire varchar(50),
+--     primary key (idlivraison),
+--     foreign key (idlivraison) references livraison(idlivraison)
+-- );
 
-create table adressePerso(
-    idlivraison int not null,
-    primary key (idlivraison),
-    foreign key (idlivraison) references livraison(idlivraison)
-);
+-- create table adressePerso(
+--     idlivraison int not null,
+--     primary key (idlivraison),
+--     foreign key (idlivraison) references livraison(idlivraison)
+-- );
 
 --Table créer pour faire la transition entre la table produit et panier
 create table contenir(
@@ -111,7 +111,7 @@ create table panier(
     prix float(11.2) default 0, 
     primary key (idpanier)
 );
-----------------------------------------------------------------------Procédures stockés------------------------------------------------------------------------------------
+-----------------------------------------------Procédures stockés---------------------------------------------------------------
 --Procédure stocker pour insérer un appareil
 delimiter $
 create procedure insertAppareil (IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_formatPellicule int, IN p_nbPoses int, IN p_focale int, IN p_alimentation varchar(50), IN p_dimension varchar(50))
@@ -250,7 +250,7 @@ begin
 end $
 delimiter ; 
 --FIN
---Procedure d'insertion panier
+--Procedure stocker d'insertion panier
 delimiter $
 create procedure insertPanier (IN p_idproduit int(3))
 begin
@@ -261,7 +261,7 @@ begin
 end $
 delimiter ;
 --FIN
---Prcédure update contenir (classe liaison entre panier et produit)
+--Prcédure stocker d'update contenir (classe liaison entre panier et produit)
 delimiter $
 create procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3))
 begin
@@ -269,9 +269,9 @@ begin
 end $
 delimiter ;
 --FIN
----------------------------------------------------------------------Fin procédures stockés---------------------------------------------------------------------------------
+----------------------------------------------Fin procédures stockés--------------------------------------------------------------
 
----------------------------------------------------------------------Insertions---------------------------------------------------------------------------------------------
+----------------------------------------------Insertions--------------------------------------------------------------------------
 call insertAppareil ('images/photoAppareil.jpg','NOKIA-33', 50, 449.99, 10, 5, 15, 'USB', '15x40x50');
 call insertAppareil ('images/photoAppareil2.jpg','Lomo LC-A 120 Camera', 50, 449.99, 10, 5, 15, 'USB', '15x40x50');
 
@@ -283,9 +283,9 @@ insert into user values
     (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
 -- call updateAppareil (1, "images/photoAppareil.jpg", "NOKIA-35", 55, 445.99, 155, 145, 135, "USB-C", "15x40x50");
 -- call updatePellicule(3, "images/photoAppareil2.jpg", "test", "test", "test", "test", "test", "test", "test");
----------------------------------------------------------------------Fin insertions-----------------------------------------------------------------------------------------
+-----------------------------------------------Fin insertions---------------------------------------------------------------------
 
----------------------------------------------------------------------Triggers-----------------------------------------------------------------------------------------------
+-----------------------------------------------Triggers---------------------------------------------------------------------
 --TRIGGER POUR INSERER LE PRIX DANS LE PANIER QUAND L'UTILISATEUR ACHETE UN PRODUIT AVEC UNE CERTAINE QUANTITE
 delimiter $
 create trigger insertContenir after insert on contenir
@@ -310,9 +310,9 @@ begin
 end $
 delimiter ;
 --FIN DU TRIGGER
----------------------------------------------------------------------Fin Triggers-------------------------------------------------------------------------------------------
+-------------------------------------------Fin Triggers---------------------------------------------------------------------
 
----------------------------------------------------------------------Debut vues---------------------------------------------------------------------------------------------
+-------------------------------------------Debut vues---------------------------------------------------------
 create view viewAppareil as (
     select p.idproduit, p.img, p.nom, p.quantite, p.prix, a.formatPellicule, a.nbPoses, a.focale, a.alimentation, a.dimension
     from appareil a, produit p
@@ -332,5 +332,4 @@ create view viewSumPanier as(
     select sum(c.idproduit)
     from contenir c, panier p
     where c.idpanier=p.idpanier
-);
------------------------------------------------------------------Fin vues---------------------------------------------------------------------------------------------------
+);-----------------------------------------Fin vues---------------------------------------------------------
