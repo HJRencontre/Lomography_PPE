@@ -38,7 +38,7 @@
 					<td> 
 						<form method ='post' action='' onsubmit='afficher()'>
 							<input type ='hidden' name ='idproduit' value ='".$unAppareil['idproduit']."'>
-							<input type='submit' value='Ajouter au panier' name='Ajouter'>
+							<input type='submit' value='Ajouter au panier' name='AjouterAuPanier'>
 						</form>
 					</td>
 				</tr>

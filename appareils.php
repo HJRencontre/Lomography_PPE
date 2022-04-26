@@ -13,19 +13,23 @@
 	}
 	/**************************************************Fin Rechercher****************************************/
 	/**************************************************Ajouter au panier****************************************/
-	if (isset($_POST['Ajouter']))
+	if (isset($_POST['AjouterAuPanier']))
 	{
-		$idproduit = $_POST['idproduit'];
+		$idProduit = $_POST['idproduit']; 
+		 
 		if (isset($_SESSION['idpanier']))
 		{
 			//appeler une mise à jour de la quantite dans contenir ou creer une quantite dans contenir si le produit est commandé pour la premiere fois. 
-			$unControleur->updateContenir($idproduit, $_SESSION['idpanier']);
-		}
-		else
-		{ 
-		$tab = array("idproduit"=>$idproduit);
+			$unControleur->updateContenir($idProduit, $_SESSION['idpanier']);
+		}else
+		{
+		$tab = array("idproduit"=>$idProduit);
 		$unControleur->insertProc("insertPanier", $tab); 
+		$where = array("idproduit"=>$idProduit); 
+		$unControleur->setTable("contenir"); 
+		$idpanier = $unControleur->selectWhere ($where)["idpanier"];
 		//recuperer l'id du panier et le mettre dans la session 
+		$_SESSION['idpanier'] =  $idpanier; 
 		}
 	}
 	/**************************************************Fin Ajouter au panier****************************************/

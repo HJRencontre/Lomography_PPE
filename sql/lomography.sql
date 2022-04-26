@@ -67,10 +67,9 @@ create table livraison(
     idlivraison int not null auto_increment,
     dateExpedition date,
     datePrevu date,
-    prix float(3,2),
-    entreprise enum("DPD","Chronopost","Mondial Relay"),
+    serviceLivraison enum("DPD","Chronopost","Mondial Relay"),
     adresse varchar(50),
-    typeLivraison enum("Point relais", "Maison"),
+    typeLivraison enum("Point relais", "A domicile"),
     primary key (idlivraison)
 );
 
@@ -265,7 +264,13 @@ delimiter ;
 delimiter $
 create procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3))
 begin
-   update contenir set qte = qte + 1 where idproduit = p_idproduit and idpanier = p_idpanier; 
+    declare nb int(3) ;
+    select count(*) into nb from contenir where idproduit = p_idproduit; 
+    if nb = 0 then 
+        insert into contenir values (1, p_idproduit, p_idpanier);
+    else 
+        update contenir set qte = qte + 1 where idproduit = p_idproduit and idpanier = p_idpanier; 
+    end if; 
 end $
 delimiter ;
 --FIN
@@ -332,4 +337,12 @@ create view viewSumPanier as(
     select sum(c.idproduit)
     from contenir c, panier p
     where c.idpanier=p.idpanier
-);-----------------------------------------Fin vues---------------------------------------------------------
+);----
+
+create view vuePanier as(
+    select  p.nom, p.idproduit, p.prix, c.qte, pn.prix as total
+    from contenir c, panier pn, produit p
+    where c.idpanier=pn.idpanier
+    and p.idproduit = c.idproduit
+);
+-------------------------------------Fin vues---------------------------------------------------------

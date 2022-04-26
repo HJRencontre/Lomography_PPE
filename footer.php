@@ -2,13 +2,13 @@
     <nav>
         <div class="contourBarreReseau">
             <div class="barreReseau">
-                <a href="https://www.instagram.com/lomographyfrance/" class="lienImgReseau">
+                <a href="https://www.instagram.com/lomographyfrance/" class="lienImgReseau"target="blank">
                     <img src="images/instagram.png" class="imgReseau">
                 </a>
-                <a href="https://www.facebook.com/lomographyfrance/" class="lienImgReseau">
+                <a href="https://www.facebook.com/lomographyfrance/" class="lienImgReseau"target="blank">
                     <img src="images/facebook.png" class="imgReseau">
                 </a>
-                <a href="https://mobile.twitter.com/lomographyfr" class="lienImgReseau">
+                <a href="https://mobile.twitter.com/lomographyfr" class="lienImgReseau"target="blank">
                     <img src="images/twitter.png" class="imgReseau">
                 </a>
             </div>
