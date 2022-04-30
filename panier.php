@@ -17,6 +17,10 @@
         echo"<script>alert('Merci pour votre commande !');</script>";
         
     }
+
+    // Faire un bouton pour supprimer UN produit du panier
+    
+    // Faire un bouton pour vider le panier
      
     require_once ("view/view_liste_livraisons.php");
 ?>
