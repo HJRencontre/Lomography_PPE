@@ -15,7 +15,7 @@
 	{
 		$idProduit = $_POST['idproduit']; 
 		// var_dump($_SESSION);
-		echo "Id produit".$idProduit;
+		// echo "Id produit".$idProduit;
 		if (isset($_SESSION['idpanier']))
 		{
 			//appeler une mise à jour de la quantite dans contenir ou creer une quantite dans contenir si le produit est commandé pour la premiere fois. 

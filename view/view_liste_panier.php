@@ -17,7 +17,9 @@
 					<td> ".$unProduit['qte']."</td>
 					<td> ".$unProduit['prix']."</td>
 					<td>
-                		<input type='submit' value='Supprimer du panier' name='SupprimerProduit'>
+						<a href='index.php?pn=panier&action=sup&idproduit=".$unProduit['idproduit']."'><img src='images/croix.png' heigth='30' width='30'></a>
+						<a href='index.php?pn=panier&action=edit&idproduit=".$unProduit['idproduit']."'><img src='images/minus.png' heigth='30' width='30'></a>
+						<a href='index.php?pn=panier&action=sup&idproduit=".$unProduit['idproduit']."'><img src='images/plus.png' heigth='30' width='30'></a>
 					</td>
 				</tr>
 			";

@@ -26,7 +26,7 @@
 					<td> ".$unObjectif['poids']."</td>
 					<td> ".$unObjectif['diametreMaxAndLongueur']."</td>
 					<td> ".$unObjectif['diametreFiltre']."</td>
-					<td> ".$unObjectif['moteurAutoFocus']."</td>,
+					<td> ".$unObjectif['moteurAutoFocus']."</td>
                     <td> ".$unObjectif['agrandissement']."</td>
 					<td id='colTab'> ".$unObjectif['prix']."</td>
 					<td>

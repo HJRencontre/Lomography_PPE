@@ -22,7 +22,7 @@
                 </select>
             </td>
             <td>
-                <input type ="text" name ="prixTotal" value ="<?= $prixTotal ?>" readonly="true"  >
+                <input type ="text" name ="prixTotal" value ="<?= $prixTotal ?>€" readonly="true"  >
             </td>
 <?php
      $dateExpedition = date('Y-m-d');

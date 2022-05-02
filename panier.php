@@ -1,7 +1,14 @@
 <?php  
     $unControleur->setTable("vuePanier"); 
     $lesProduitsPanier = $unControleur->selectAll();
-    $prixTotal = $lesProduitsPanier[0]["total"];
+    if ($lesProduitsPanier != null)
+    {
+        $prixTotal = $lesProduitsPanier[0]["total"];
+    }
+    else
+    {
+        $prixTotal = "0";
+    }
     require_once("view/view_liste_panier.php"); 
     if (isset($_POST['ValiderLivraison']))
     {
@@ -23,6 +30,5 @@
     {
         
     }
-    
     require_once ("view/view_liste_livraisons.php");
 ?>

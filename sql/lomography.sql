@@ -286,6 +286,14 @@ call insertObjectif ('images/photoAppareil.jpg','NomObjectif', 100, 144.99, 0.50
 
 insert into user values
     (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
+
+-- insert into livraison values
+--     (1, "", "", "", "", ""), (2, "", "", "", "", "");
+
+-- insert into panier values
+--     (1, "0"), (2, "0");
+-- insert into choisir values
+--     (1, 1, 1);
 -- call updateAppareil (1, "images/photoAppareil.jpg", "NOKIA-35", 55, 445.99, 155, 145, 135, "USB-C", "15x40x50");
 -- call updatePellicule(3, "images/photoAppareil2.jpg", "test", "test", "test", "test", "test", "test", "test");
 -----------------------------------------------Fin insertions---------------------------------------------------------------------
@@ -315,6 +323,38 @@ begin
 end $
 delimiter ;
 --FIN DU TRIGGER
+
+-- TEST LUNDI DE LIER L'UTILISATEUR AU PANIER MAIS FAIL--
+-- -- TRIGGER QUI CREER UNE TABLE CHOISIR QUAND ON CREER UN UTILISATEUR
+-- delimiter $
+-- create trigger insertUser after insert on user
+-- for each row
+-- begin
+--     declare c_iduser, c_idpanier, c_idlivraison int;
+--     select iduser into c_iduser from user where iduser = new.iduser;
+--     insert into panier values (null, "0");
+--     select idpanier into c_idpanier from panier where idpanier = new.idpanier;
+--     insert into livraison values (null, "", "", "", ":adresse", "");
+--     select idlivraison into c_idlivraison from livraison where idlivraison = new.idlivraison;
+--     insert into choisir values (":c_iduser",":c_idpanier",":c_iduser");
+-- end $
+-- delimiter ;
+-- --FIN DU TRIGGER
+
+-- delimiter $
+-- create trigger insertUser1 after insert on user
+-- for each row
+-- begin
+--     insert into livraison values (null, "", "", "", ":adresse", "");
+-- end
+-- delimiter;
+
+-- delimiter $
+-- create trigger insertLivraison after insert on livraison
+-- for each row
+-- begin
+--     insert into 
+--
 -------------------------------------------Fin Triggers---------------------------------------------------------------------
 
 -------------------------------------------Debut vues---------------------------------------------------------
@@ -337,7 +377,7 @@ create view viewSumPanier as(
     select sum(c.idproduit)
     from contenir c, panier p
     where c.idpanier=p.idpanier
-);----
+);
 
 create view vuePanier as(
     select  p.nom, p.idproduit, p.prix, c.qte, pn.prix as total
