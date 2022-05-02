@@ -1,7 +1,9 @@
 <?php  
     $unControleur->setTable("vuePanier"); 
     $lesProduitsPanier = $unControleur->selectAll();
-    $prixTotal = $lesProduitsPanier[0]["total"];
+    if ($lesProduitsPanier != null){
+        $prixTotal = $lesProduitsPanier[0]["total"];
+    }
     require_once("view/view_liste_panier.php"); 
     if (isset($_POST['ValiderLivraison']))
     {

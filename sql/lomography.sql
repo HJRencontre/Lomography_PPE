@@ -277,12 +277,54 @@ delimiter ;
 ----------------------------------------------Fin procédures stockés--------------------------------------------------------------
 
 ----------------------------------------------Insertions--------------------------------------------------------------------------
-call insertAppareil ('images/photoAppareil.jpg','NOKIA-33', 50, 449.99, 10, 5, 15, 'USB', '15x40x50');
-call insertAppareil ('images/photoAppareil2.jpg','Lomo LC-A 120 Camera', 50, 449.99, 10, 5, 15, 'USB', '15x40x50');
+-- Appareils
+call insertAppareil ('images/appareil/actionSampler.jpg','ActionSampler', 20, 29.99, 35, 36, 35, 'CR123A', '15*10*3');
 
-call insertPellicule ('images/photoAppareil.jpg','NomPellicule', 20, 24.99,'Jsp', 'Jsp2', 'Jsp3', 5);
+call insertAppareil ('images/appareil/dianaBaby.jpg','Diana Baby + Objectif 12mm', 20, 34.90, 110, 12, 35, 'CR23V', '10*9*3');
 
-call insertObjectif ('images/photoAppareil.jpg','NomObjectif', 100, 144.99, 0.500, 15.50, 8.00, 'Blabla', '50 metre');
+call insertAppareil ('images/appareil/fisheyejpg.jpg','Fisheye', 10, 59.00, 35, 36, 35, 'AAA*2', '15*10*3');
+
+call insertAppareil ('images/appareil/horizon.jpg','Horizon', 30, 299.00, 35, 21, 29, 'AA*2', '16*12*5');
+
+call insertAppareil ('images/appareil/jetable.jpg','Appareil jetable rechargeable', 50, 29.00, 35, 39, 35, 'AA*2', '12*7*5');
+
+call insertAppareil ('images/appareil/konstruktor.jpg','Konstruktor', 43, 39.00, 35, 35, 35, 'A*2', '16*11*5');
+
+call insertAppareil ('images/appareil/lc-a.jpg','Lomo LC-A+', 22, 299.00, 35, 36, 35, 'Sans pile', '16*12*4');
+
+call insertAppareil ('images/appareil/lc-wide.jpg','Lomo LC-Wide', 34, 399.00, 35, 36, 35, 'Sans pile', '16*12*4');
+
+call insertAppareil ('images/appareil/lubitel.jpg','Lubitel 166B', 12, 399.00, 120, 12, 52, 'Sans pile', '20*10*10');
+
+call insertAppareil ('images/appareil/lc-120.jpg','Lomo LC-A 120', 9, 449.00, 120, 58, 16, 'Sans pile', '18*13*5');
+
+call insertAppareil ('images/appareil/sprocket.jpg','Sprocket Rocket', 17, 79.00, 35, 21, 32, 'Sans pile', '20*7*4');
+
+-- Pellicules
+
+call insertPellicule ('images/pellicule/berlinkino35mm.jpg','Berlin Kino 400', 50, 9.90,'N&B', 'C-41', '400', 35);
+
+call insertPellicule ('images/pellicule/packcolornegative32mm.jpg','Pack color negative 800', 43, 35.90,'Couleur', 'C-41', '800', 35);
+
+call insertPellicule ('images/pellicule/packcolornegative120.jpg','Pack color negative 100', 23, 46.50,'Couleur', 'C-41', '100', 120);
+
+call insertPellicule ('images/pellicule/packduet35mm.jpg','Pack duet 200', 18, 24.99,'Couleur', 'E-56', '200', 35);
+
+call insertPellicule ('images/pellicule/packladygrey120.jpg','Pack Lady Grey 400', 28, 46.50,'Couleur', 'Cafénol', '400', 120);
+
+call insertPellicule ('images/pellicule/packquartet35mm.jpg','Pack Quartet 200', 5, 53.24,'Mixte', 'C-41', '200', 35);
+
+call insertPellicule ('images/pellicule/packredscale35.jpg 200','Pack Redscale ', 8, 36.00,'Couleur', 'C-41', '50-200', 35);
+
+call insertPellicule ('images/pellicule/packredscale120.jpg','Pack Quartet 200', 2, 63.24,'Couleur', 'C-41', '50-200', 120);
+
+call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
+
+call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
+
+-- Objectifs
+
+call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 299.99, 0.500, 80, 80, 'Manuel', '82mm');
 
 insert into user values
     (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
