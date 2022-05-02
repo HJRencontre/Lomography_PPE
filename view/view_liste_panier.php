@@ -16,8 +16,8 @@
 					<td> ".$unProduit['nom']."</td>
 					<td> ".$unProduit['qte']."</td>
 					<td> ".$unProduit['prix']."</td>
-					<td> 
-						
+					<td>
+                		<input type='submit' value='Supprimer du panier' name='SupprimerProduit'>
 					</td>
 				</tr>
 			";

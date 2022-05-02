@@ -19,8 +19,10 @@
     }
 
     // Faire un bouton pour supprimer UN produit du panier
+    if(isset($_POST['SupprimerProduit']))
+    {
+        
+    }
     
-    // Faire un bouton pour vider le panier
-     
     require_once ("view/view_liste_livraisons.php");
 ?>
