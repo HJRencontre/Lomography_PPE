@@ -8,6 +8,7 @@
     else
     {
         $prixTotal = "0";
+        
     }
     require_once("view/view_liste_panier.php"); 
     if (isset($_POST['ValiderLivraison']))
