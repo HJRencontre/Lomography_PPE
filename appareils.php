@@ -20,7 +20,7 @@
 		if (isset($_SESSION['idpanier']))
 		{
 			//appeler une mise à jour de la quantite dans contenir ou creer une quantite dans contenir si le produit est commandé pour la premiere fois. 
-			$unControleur->updateContenir($idProduit, $_SESSION['idpanier']);
+			$unControleur->updateContenir($idProduit, $_SESSION['idpanier'], "+1");
 		}else
 		{
 		$tab = array("idproduit"=>$idProduit);
