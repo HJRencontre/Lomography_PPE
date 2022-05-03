@@ -262,14 +262,22 @@ delimiter ;
 --FIN
 --Prcédure stocker d'update contenir (classe liaison entre panier et produit)
 delimiter $
-create procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3))
+create procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3), IN choix int)
 begin
     declare nb int(3) ;
+     declare p_qte int(3) ;
     select count(*) into nb from contenir where idproduit = p_idproduit; 
     if nb = 0 then 
         insert into contenir values (1, p_idproduit, p_idpanier);
     else 
-        update contenir set qte = qte + 1 where idproduit = p_idproduit and idpanier = p_idpanier; 
+        select qte into p_qte from contenir where idproduit = p_idproduit and idpanier = p_idpanier;
+        if  choix <0 then
+            if p_qte >= 1 then
+                update contenir set qte = qte + choix where idproduit = p_idproduit and idpanier = p_idpanier; 
+            end if; 
+        else 
+              update contenir set qte = qte + choix where idproduit = p_idproduit and idpanier = p_idpanier; 
+        end if;
     end if; 
 end $
 delimiter ;
