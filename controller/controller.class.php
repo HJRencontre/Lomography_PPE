@@ -57,7 +57,6 @@
 		public function updateContenir($idproduit, $idpanier,$choix)
 		{
 			return $this->unModele->updateContenir($idproduit, $idpanier,$choix);
-			
 		}
 		public function selectSearch($tab, $mot)
 		{
