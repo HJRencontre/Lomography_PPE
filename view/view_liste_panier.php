@@ -24,8 +24,8 @@
 				</tr>
 			";
 		}
-        // echo "<br/> Total à payer : ".$lesProduitsPanier[0]['total']." euros.";
-       
+        // echo "<br/> Total à payer : ".$lesProduitsPanier[0]['total']." euros.";    
+		
 	?>
 </table>
 
