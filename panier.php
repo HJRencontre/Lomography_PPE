@@ -39,5 +39,6 @@
         }
         header("Location: index.php?pn=panier");
     }
+    
     require_once ("view/view_liste_livraisons.php");
 ?>
