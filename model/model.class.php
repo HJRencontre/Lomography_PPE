@@ -63,25 +63,10 @@
 			$select = $this->unPdo->prepare ($requete);
 			$select->execute ($donnees);
 		}
-		public function creerCompte ($tab)
-		{
-			$champs = array(); 
-			$donnees = array(); 
-			foreach ($tab as $cle => $valeur) {
-				 $champs[] = ":".$cle;
-				 $donnees[":".$cle] = $valeur; 
-			}
-			$chaineChamps = implode(",", $champs); 
 
-			$requete ="insert into ". $this->uneTable ." values (null,".$chaineChamps.",'user');" ;
-			 
-			$select = $this->unPdo->prepare ($requete);
-			$select->execute ($donnees);
-		}
-
-		public function updateContenir($idproduit, $idpanier)
+		public function updateContenir($idproduit, $idpanier, $choix)
 		{
-			$requete = "call updateContenir (".$idproduit.",".$idpanier.");";
+			$requete = "call updateContenir (".$idproduit.",".$idpanier.",".$choix.");";
 			$select = $this->unPdo->prepare ($requete);
 			$select->execute ();
 		}
@@ -208,6 +193,24 @@
 			$select = $this->unPdo->prepare ($requete);
 			$select->execute ($donnees);
 			return $select->fetch ();
+		}
+		public function creerCompte ($tab)
+		{
+			$champs = array(); 
+			$donnees = array(); 
+			foreach ($tab as $cle => $valeur) {
+				 $champs[] = ":".$cle;
+				 $donnees[":".$cle] = $valeur; 
+			}
+			$chaineChamps = implode(",", $champs); 
+
+			$requete ="insert into ". $this->uneTable ." values (null,".$chaineChamps.",'user');" ;
+			 
+			$select = $this->unPdo->prepare ($requete);
+			$select->execute ($donnees);
+			// $requetePanier = "insert into panier values (null, null)";
+			// $requeteLivraison = "insert into livraison values (null,null,null,null,'".."',null)";
+			// $requeteChoisir = "insert into choisir values ()";
 		}
 	}
 ?>

@@ -26,9 +26,17 @@
     }
 
     // Faire un bouton pour supprimer UN produit du panier
-    if(isset($_POST['SupprimerProduit']))
+    if(isset($_GET['action'])and isset($_GET['idproduit']))
     {
-        
+        $action = $_GET['action'];
+        $idproduit = $_GET['idproduit'];
+        switch ($action)
+        {
+            case "minus" : $unControleur->updateContenir($idproduit, $_SESSION['idpanier'],-1);break;
+            case "plus" : $unControleur->updateContenir($idproduit, $_SESSION['idpanier'],+1);break;
+            case "sup" : break;
+        }
+        header("Location: index.php?pn=panier");
     }
     if ($lesProduitsPanier != null)
     {

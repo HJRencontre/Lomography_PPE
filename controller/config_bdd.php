@@ -3,7 +3,7 @@
     $bdd = "lomography";
     $user = "merguez";
     $mdp = "password";  
-
+   
     // $serveur = "127.0.0.1:3306";
     // $bdd = "lomography";
     // $user = "root";

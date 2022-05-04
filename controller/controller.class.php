@@ -54,10 +54,9 @@
 		{
 			 $this->unModele->updateProc ($procedure, $where, $tab); 
 		}
-		public function updateContenir($idproduit, $idpanier)
+		public function updateContenir($idproduit, $idpanier,$choix)
 		{
-			return $this->unModele->updateContenir($idproduit, $idpanier);
-			
+			return $this->unModele->updateContenir($idproduit, $idpanier,$choix);
 		}
 		public function selectSearch($tab, $mot)
 		{
