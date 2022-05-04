@@ -286,7 +286,7 @@ delimiter ;
 
 ----------------------------------------------Insertions--------------------------------------------------------------------------
 -- Appareils
-call insertAppareil ('images/appareil/actionSampler.jpg','ActionSampler', 20, 29.99, 35, 36, 35, 'CR123A', '15*10*3');
+call insertAppareil ('images/appareil/actionsampler.jpg','ActionSampler', 20, 29.99, 35, 36, 35, 'CR123A', '15*10*3');
 
 call insertAppareil ('images/appareil/dianaBaby.jpg','Diana Baby + Objectif 12mm', 20, 34.90, 110, 12, 35, 'CR23V', '10*9*3');
 
