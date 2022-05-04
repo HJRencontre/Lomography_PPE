@@ -4,7 +4,7 @@
 
 		<tr id="ligneTab">
 			<td> <label for="img">Image</label> </td> 
-			<td> <input type="file" name="img" value="'/home/student/lomography_ppe/'<?php if($lAppareil!=null) echo $lAppareil['img'];?>"></td>
+			<td> <input type="file" name="img" value="<?php if($lAppareil!=null) echo $lAppareil['img'];?>"></td>
 		</tr>
 		<tr id="ligneTab">
 			<td> Nom </td> 
