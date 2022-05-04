@@ -8,7 +8,6 @@
     else
     {
         $prixTotal = "0";
-        
     }
     require_once("view/view_liste_panier.php"); 
     if (isset($_POST['ValiderLivraison']))
@@ -39,5 +38,8 @@
         }
         header("Location: index.php?pn=panier");
     }
+    if ($lesProduitsPanier != null)
+    {
     require_once ("view/view_liste_livraisons.php");
+    }
 ?>
