@@ -1,33 +1,25 @@
 <div class="bodyIndex">
-<img class="imgIndex"src="images/photo4.jpg" alt="">
-	<div class="textIndex">
-		<div>
+    <img class="imgIndex" src="images/photo4.jpg" alt="">
+    <div class="textIndex">
+        <div>
             <!-- PRIVACY STATEMENT -->
-			<p class="bvnIndex">Privacy Statement</p>
-			<p class="pIndex">At the Lomography, we believe our online visitors have the right to know our practices regarding data we may collect when you visit our web sites. The policies contained herein apply to your visit to the web sites operated by Lomography and affiliated entities. We sincerely guarantee taking the highest care in protecting the privacy of our customers!</p>
-            <p class="pIndex">We invest in high-quality security and do our utmost to protect user privacy through the appropriate use of the latest security technology. We shall take appropriate security measures to prevent unauthorised access, disclosure, modification, or destruction of Data.</p>
-            <p class="pIndex">In order to participate in activities on our websites, it will be necessary for you to provide us with some personally identifiable information. If you choose not to provide this information, you may not be able to participate in these activities.</p>
-            <p class="pIndex">The Data is kept for the time stated in this document, and you can always request suspension or removal of your data.</p>
-            <p class="pIndex">The data processing exclusively takes place according to the mandatory regulations of the Austrian Telecommunications Act (TKG 2003) and the EU General Data Protection Regulation (GDPR, DSGVO). It takes place in the European Union, Switzerland, and the United States. The data processing in Switzerland and the United States is compliant with the Privacy Shield Framework.</p>
+            <p class="bvnIndex">Politique de confidentialité</p>
+            <p class="pIndex">Chez Lomography, nous pensons que nos visiteurs en ligne ont le droit de connaître nos pratiques concernant les données que nous pouvons collecter lorsque vous visitez nos sites web. Les politiques contenues dans le présent document s'appliquent à votre visite des sites web exploités par Lomography et ses entités affiliées. Nous vous garantissons sincèrement d'apporter le plus grand soin à la protection de la vie privée de nos clients !</p>
+            <p class="pIndex">Nous investissons dans une sécurité de haute qualité et faisons tout notre possible pour protéger la vie privée des utilisateurs par l'utilisation appropriée des dernières technologies de sécurité. Nous prenons les mesures de sécurité appropriées pour empêcher l'accès, la divulgation, la modification ou la destruction non autorisés des données.</p>
+            <p class="pIndex">Afin de participer à des activités sur nos sites Web, il vous sera nécessaire de nous fournir certaines informations permettant de vous identifier. Si vous choisissez de ne pas fournir ces informations, il se peut que vous ne puissiez pas participer à ces activités.</p>
+            <p class="pIndex">Les données sont conservées pendant la durée indiquée dans ce document, et vous pouvez toujours demander la suspension ou la suppression de vos données.</p>
+            <p class="pIndex">Le traitement des données s'effectue exclusivement selon les dispositions obligatoires de la loi autrichienne sur les télécommunications (TKG 2003) et du règlement général de l'UE sur la protection des données (GDPR, DSGVO). Il a lieu dans l'Union européenne, en Suisse et aux États-Unis. Le traitement des données en Suisse et aux États-Unis est conforme au cadre du bouclier de confidentialité.</p>
             <!-- PRIVACY STATEMENT END -->
             <!-- CONTACT US START -->
-            <p class="bvnIndex">Contacting Us</p>
+            <p class="bvnIndex">Nous contacter</p>
             <p class="pIndex">
-            If you contact us through forms or directly by email, we store the data provided for six months for the purpose of processing the inquiry and follow-up questions.
-            We will not pass on any individual user details (including your email address) for third party use unless we have your prior consent.
+                Si vous nous contactez par le biais de formulaires ou directement par e-mail, nous conservons les données fournies pendant six mois afin de traiter la demande et les questions de suivi.
+                Nous ne transmettrons pas les données individuelles des utilisateurs (y compris votre adresse électronique) à des tiers, sauf si nous avons obtenu votre consentement préalable.
             </p>
             <!-- CONTACT US END -->
 
-            <p class="bvnIndex">About</p>
-            <p class="pIndex">Place of jurisdiction and legal venue: Commercial Court of Vienna # 134784 m
-            Registered under number 134784 m
-            Member of the Austrian Federal Economic Chamber, Vienna
-            Legal provisions applicable: Austrian law (www.ris.bka.gv.at), excluding its conflicts of law rules; In particular applicable is the Trade Regulation Act of 1994 (GewO 1994)
-            Supervisory Authority: City Administration of Vienna
-            This Privacy Policy is effective as of May 25, 2018.</p>
-
+            <p class="bvnIndex">A propos</p>
+            <p class="pIndex">Lieu de juridiction : Tribunal de commerce de Vienne # 134784 m Enregistré sous le numéro 134784 m Membre de la Chambre économique fédérale autrichienne, Vienne Dispositions légales applicables : Droit autrichien (www.ris.bka.gv.at), à l'exclusion de ses règles de conflit de lois ; Est notamment applicable la loi sur la réglementation du commerce de 1994 (GewO 1994) Autorité de contrôle : Administration de la ville de Vienne La présente politique de confidentialité est en vigueur depuis le 25 mai 2018. </p>
         </div>
-
-	</div>
-
+    </div>
 </div>

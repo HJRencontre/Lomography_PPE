@@ -29,7 +29,7 @@
 	if(isset($_POST['Modifier']))
 	{
 		$unControleur->setTable("viewAppareil");
-		var_dump($_FILES["img"]);
+		// var_dump($_FILES["img"]);
 		$image= $_FILES["img"]["name"];
 		copy($_FILES["img"]["tmp_name"], "./images/appareil/".$image);
 		$tab = array("img"=>"images/appareil/". $image,

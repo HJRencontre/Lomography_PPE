@@ -2,7 +2,7 @@
 		<div class="header" id="header2">
 			<nav>
 				<div class="gestionProduits">
-					<a href="index.php?pn=gestionAppareilsAdmin">Gestion produits</a>
+					<a href="index.php?pn=gestionAppareilsAdmin">Gestion appareils</a>
 					<a href="index.php?pn=gestionPelliculesAdmin">Gestion pellicules</a>
 					<a href="index.php?pn=gestionObjectifsAdmin">Gestion objectifs</a>
 				</div>

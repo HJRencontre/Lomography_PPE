@@ -29,7 +29,10 @@
 	if(isset($_POST['Modifier']))
 	{
 		$unControleur->setTable("viewObjectif");
-		$tab = array("img"=>"images/".$_POST['img'],
+		// var_dump($_FILES["img"]);
+		$image= $_FILES["img"]["name"];
+		copy($_FILES["img"]["tmp_name"], "./images/objectif/".$image);
+		$tab = array("img"=>"images/objectif/". $image,
                     "nom"=>$_POST['nom'], 
                     "quantite"=>$_POST['quantite'], 
                     "prix"=>$_POST['prix'], 
@@ -41,7 +44,7 @@
                     );
 		$where = array("idproduit"=>$_GET['idproduit']);
 		$unControleur->updateProc("updateObjectif", $where, $tab );
-		header("Location: index.php?pn=gestionObjectifsAdmin");
+		//header("Location: index.php?pn=gestionObjectifsAdmin");
 	}
 
 		if(isset($_POST['Valider']))

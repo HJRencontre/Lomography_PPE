@@ -1,5 +1,5 @@
 <h2 class="contentProduit"> Insertion d'une Pellicule</h2>
-<form class="rechercheProduit" method="post" action="">
+<form class="rechercheProduit" method="post" enctype="multipart/form-data" action="">
 	<table class="styled-tableInsert"> 
 
 		<tr id="ligneTab">
