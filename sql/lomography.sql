@@ -2,6 +2,7 @@ drop database if exists lomography;
 create database lomography;
 use lomography;
 
+-- Table produit
 create table produit(
     idproduit int not null auto_increment,
     img varchar(50),
@@ -10,7 +11,9 @@ create table produit(
     prix float(5,2),
     primary key (idproduit)
 );
+-- FIN
 
+-- Table pellicule
 create table pellicule(
     idproduit int not null,
     typeFilm varchar(50),
@@ -20,7 +23,9 @@ create table pellicule(
     primary key (idproduit),
     foreign key (idproduit) references produit(idproduit)
 );
+-- FIN
 
+-- Table appareil
 create table appareil(
     idproduit int not null,
     formatPellicule int(10),
@@ -31,7 +36,9 @@ create table appareil(
     primary key(idproduit),
     foreign key (idproduit) references produit(idproduit)
 );
+-- FIN
 
+-- Table objectif
 create table objectif(
     idproduit int not null,
     poids float(10),
@@ -42,16 +49,9 @@ create table objectif(
     primary key (idproduit),
     foreign key (idproduit) references produit(idproduit)
 );
+-- FIN
 
-create table media(
-    idmedia int not null auto_increment,
-    description varchar(50),
-    url varchar(50),
-    idproduit int,
-    primary key (idmedia),
-    foreign key (idproduit) references produit (idproduit)
-);
-
+-- Table user
 create table user(
     iduser int not null auto_increment,
     nom varchar(50),
@@ -62,7 +62,9 @@ create table user(
     droit enum ("admin", "user"),
     primary key (iduser)
 );
+-- FIN
 
+-- Table livraison
 create table livraison(
     idlivraison int not null auto_increment,
     dateExpedition date,
@@ -72,22 +74,9 @@ create table livraison(
     typeLivraison enum("Point relais", "A domicile"),
     primary key (idlivraison)
 );
+-- FIN
 
--- create table pointRelais(
---     idlivraison int not null,
---     nom varchar(50),
---     horaire varchar(50),
---     primary key (idlivraison),
---     foreign key (idlivraison) references livraison(idlivraison)
--- );
-
--- create table adressePerso(
---     idlivraison int not null,
---     primary key (idlivraison),
---     foreign key (idlivraison) references livraison(idlivraison)
--- );
-
---Table créer pour faire la transition entre la table produit et panier
+--Table Contenir  (pour faire la transition entre la table produit et panier)
 create table contenir(
     qte int,
     idproduit int,
@@ -96,7 +85,7 @@ create table contenir(
 );
 --FIN
 
---Table créer pour faire la transition entre panier livraison et user
+--Table choisir (pour faire la transition entre panier livraison et user)
 create table choisir(
     idlivraison int,
     iduser int,
@@ -105,11 +94,14 @@ create table choisir(
 );
 --FIN
 
+-- Table panier
 create table panier(
     idpanier int not null auto_increment,
     prix float(11.2) default 0, 
     primary key (idpanier)
 );
+-- FIN
+
 -----------------------------------------------Procédures stockés---------------------------------------------------------------
 --Procédure stocker pour insérer un appareil
 delimiter $
@@ -141,6 +133,7 @@ SET idproduit = p_idproduit, formatPellicule = p_formatPellicule, nbPoses = p_nb
 WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
+
 --Procédure stocker pour modifier une pellicule
 delimiter $
 CREATE procedure updatePellicule (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_typeFilm varchar(50), IN p_developpement varchar(50), IN p_sensibilite varchar(50), IN p_format int)
@@ -153,6 +146,7 @@ SET idproduit = p_idproduit, typeFilm = p_typeFilm, developpement = p_developpem
 WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
+
 --Procédure stocker pour modifier un objectif
 delimiter $
 CREATE procedure updateObjectif (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_poids float, IN p_diametreMaxAndLongueur int, IN p_diametreFiltre int, IN p_moteurAutoFocus varchar(50), IN p_agrandissement varchar(50)) begin UPDATE produit
@@ -278,6 +272,7 @@ WHERE o.idproduit = p_idproduit
 AND p.idproduit = p_idproduit; end $
 delimiter ; 
 --FIN
+
 --Procedure stocker d'insertion panier
 delimiter $
 CREATE procedure insertPanier (IN p_idproduit int(3)) begin declare p_idpanier int(3) ;
@@ -288,29 +283,58 @@ FROM panier ;
 INSERT INTO contenir values (1, p_idproduit, p_idpanier); end $
 delimiter ;
 --FIN
---Prcédure stocker d'update contenir (classe liaison entre panier et produit)
+
+--Procédure stocker d'update contenir (classe liaison entre panier et produit)
 delimiter $
-CREATE procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3), IN choix int) begin declare nb int(3) ; declare p_qte int(3) ;
+CREATE procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3), IN choix int)
+begin 
+declare nb int(3); 
+declare p_qte int(3);
+declare qte_panier int(3);
 
 SELECT  COUNT(*) into nb
 FROM contenir
-WHERE idproduit = p_idproduit; if nb = 0 THEN
-INSERT INTO contenir values (1, p_idproduit, p_idpanier); else
+WHERE idproduit = p_idproduit;
 
-SELECT  qte into p_qte
-FROM contenir
-WHERE idproduit = p_idproduit
-AND idpanier = p_idpanier; if choix <0 THEN if p_qte >= 1 THEN update contenir
-
-SET qte = qte + choix
-WHERE idproduit = p_idproduit
-AND idpanier = p_idpanier; end if; else update contenir
-
-SET qte = qte + choix
-WHERE idproduit = p_idproduit
-AND idpanier = p_idpanier; end if; end if; end $
+SELECT COUNT(*) qte_panier 
+FROM contenir 
+WHERE idpanier = p_idpanier;
+if nb = 0 THEN
+    INSERT INTO contenir values (1, p_idproduit, p_idpanier); 
+else
+    SELECT  qte into p_qte
+    FROM contenir
+    WHERE idproduit = p_idproduit
+    AND idpanier = p_idpanier; 
+    if choix <0 THEN 
+        if p_qte >= 1 THEN 
+            update contenir
+            SET qte = qte + choix
+            WHERE idproduit = p_idproduit
+            AND idpanier = p_idpanier; 
+        end if; 
+    else 
+            update contenir
+            SET qte = qte + choix
+            WHERE idproduit = p_idproduit
+            AND idpanier = p_idpanier; 
+    end if;
+    if p_qte = 0 THEN
+        -- Suppression du produit du panier
+        DELETE FROM contenir 
+        WHERE idproduit = p_idproduit;
+        -- Met le prix à zéro s'il n'y a plus de produits dans le panier
+        if qte_panier = 0 THEN
+            UPDATE panier
+            SET prix = 0
+            WHERE idpanier = p_idpanier;
+        end if;
+    end if;
+end if; 
+end $
 delimiter ;
 --FIN
+
 ----------------------------------------------Fin procédures stockés--------------------------------------------------------------
 
 ----------------------------------------------Insertions--------------------------------------------------------------------------
@@ -338,7 +362,6 @@ call insertAppareil ('images/appareil/lc-120.jpg','Lomo LC-A 120', 9, 449.00, 12
 call insertAppareil ('images/appareil/sprocket.jpg','Sprocket Rocket', 17, 79.00, 35, 21, 32, 'Sans pile', '20*7*4');
 
 -- Pellicules
-
 call insertPellicule ('images/pellicule/berlinkino35mm.jpg','Berlin Kino 400', 50, 9.90,'N&B', 'C-41', '400', 35);
 
 call insertPellicule ('images/pellicule/packcolornegative32mm.jpg','Pack color negative 800', 43, 35.90,'Couleur', 'C-41', '800', 35);
@@ -360,25 +383,16 @@ call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14,
 call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
 
 -- Objectifs
-
 call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 299.99, 0.500, 80, 80, 'Manuel', '82mm');
 
 INSERT INTO user values (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), 
                         (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
 
--- insert into livraison values
---     (1, "", "", "", "", ""), (2, "", "", "", "", "");
-
--- insert into panier values
---     (1, "0"), (2, "0");
--- insert into choisir values
---     (1, 1, 1);
--- call updateAppareil (1, "images/photoAppareil.jpg", "NOKIA-35", 55, 445.99, 155, 145, 135, "USB-C", "15x40x50");
--- call updatePellicule(3, "images/photoAppareil2.jpg", "test", "test", "test", "test", "test", "test", "test");
 -----------------------------------------------Fin insertions---------------------------------------------------------------------
 
 -----------------------------------------------Triggers---------------------------------------------------------------------
---TRIGGER POUR INSERER LE PRIX DANS LE PANIER QUAND L'UTILISATEUR ACHETE UN PRODUIT AVEC UNE CERTAINE QUANTITE
+
+--TRIGGER POUR INSERER LE PRIX DANS LE PANIER
 delimiter $
 CREATE trigger insertContenir after insert
 ON contenir for each row begin declare p_prix float;
@@ -443,6 +457,8 @@ delimiter ;
 -------------------------------------------Fin Triggers---------------------------------------------------------------------
 
 -------------------------------------------Debut vues---------------------------------------------------------
+
+-- Vue appareil
 CREATE view viewAppareil AS (
 SELECT  p.idproduit
        ,p.img
@@ -456,7 +472,9 @@ SELECT  p.idproduit
        ,a.dimension
 FROM appareil a, produit p
 WHERE a.idproduit = p.idproduit );
+-- FIN
 
+-- Vue pellicule
 CREATE view viewPellicule AS (
 SELECT  p.idproduit
        ,p.img
@@ -469,7 +487,9 @@ SELECT  p.idproduit
        ,pell.format
 FROM pellicule pell, produit p
 WHERE pell.idproduit = p.idproduit );
+-- FIN
 
+-- Vue objectif
 CREATE view viewObjectif AS (
 SELECT  p.idproduit
        ,p.img
@@ -483,12 +503,16 @@ SELECT  p.idproduit
        ,o.agrandissement
 FROM objectif o, produit p
 WHERE o.idproduit = p.idproduit );
+-- FIN
 
+-- Vue somme panier
 CREATE view viewSumPanier as(
 SELECT  SUM(c.idproduit)
 FROM contenir c, panier p
 WHERE c.idpanier=p.idpanier );
+-- FIN
 
+-- Vue panier
 CREATE view vuePanier as(
 SELECT  p.nom
        ,p.idproduit
@@ -498,4 +522,6 @@ SELECT  p.nom
 FROM contenir c, panier pn, produit p
 WHERE c.idpanier=pn.idpanier
 AND p.idproduit = c.idproduit );
+-- FIN
+
 -------------------------------------Fin vues---------------------------------------------------------
