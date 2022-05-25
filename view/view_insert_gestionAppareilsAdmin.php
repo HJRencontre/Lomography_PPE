@@ -52,3 +52,6 @@
 		</tr>
 	</table>
 </form>
+<?php
+echo $lAppareil['img'];
+?>
