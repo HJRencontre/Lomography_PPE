@@ -2,6 +2,7 @@ drop database if exists lomography;
 create database lomography;
 use lomography;
 
+-- Table produit
 create table produit(
     idproduit int not null auto_increment,
     img varchar(50),
@@ -10,7 +11,9 @@ create table produit(
     prix float(5,2),
     primary key (idproduit)
 );
+-- FIN
 
+-- Table pellicule
 create table pellicule(
     idproduit int not null,
     typeFilm varchar(50),
@@ -20,7 +23,9 @@ create table pellicule(
     primary key (idproduit),
     foreign key (idproduit) references produit(idproduit)
 );
+-- FIN
 
+-- Table appareil
 create table appareil(
     idproduit int not null,
     formatPellicule int(10),
@@ -31,7 +36,9 @@ create table appareil(
     primary key(idproduit),
     foreign key (idproduit) references produit(idproduit)
 );
+-- FIN
 
+-- Table objectif
 create table objectif(
     idproduit int not null,
     poids float(10),
@@ -42,16 +49,9 @@ create table objectif(
     primary key (idproduit),
     foreign key (idproduit) references produit(idproduit)
 );
+-- FIN
 
-create table media(
-    idmedia int not null auto_increment,
-    description varchar(50),
-    url varchar(50),
-    idproduit int,
-    primary key (idmedia),
-    foreign key (idproduit) references produit (idproduit)
-);
-
+-- Table user
 create table user(
     iduser int not null auto_increment,
     nom varchar(50),
@@ -62,7 +62,9 @@ create table user(
     droit enum ("admin", "user"),
     primary key (iduser)
 );
+-- FIN
 
+-- Table livraison
 create table livraison(
     idlivraison int not null auto_increment,
     dateExpedition date,
@@ -72,22 +74,9 @@ create table livraison(
     typeLivraison enum("Point relais", "A domicile"),
     primary key (idlivraison)
 );
+-- FIN
 
--- create table pointRelais(
---     idlivraison int not null,
---     nom varchar(50),
---     horaire varchar(50),
---     primary key (idlivraison),
---     foreign key (idlivraison) references livraison(idlivraison)
--- );
-
--- create table adressePerso(
---     idlivraison int not null,
---     primary key (idlivraison),
---     foreign key (idlivraison) references livraison(idlivraison)
--- );
-
---Table créer pour faire la transition entre la table produit et panier
+--Table Contenir  (pour faire la transition entre la table produit et panier)
 create table contenir(
     qte int,
     idproduit int,
@@ -96,7 +85,7 @@ create table contenir(
 );
 --FIN
 
---Table créer pour faire la transition entre panier livraison et user
+--Table choisir (pour faire la transition entre panier livraison et user)
 create table choisir(
     idlivraison int,
     iduser int,
@@ -105,183 +94,247 @@ create table choisir(
 );
 --FIN
 
+-- Table panier
 create table panier(
     idpanier int not null auto_increment,
     prix float(11.2) default 0, 
     primary key (idpanier)
 );
+-- FIN
+
 -----------------------------------------------Procédures stockés---------------------------------------------------------------
 --Procédure stocker pour insérer un appareil
 delimiter $
 create procedure insertAppareil (IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_formatPellicule int, IN p_nbPoses int, IN p_focale int, IN p_alimentation varchar(50), IN p_dimension varchar(50))
 begin 
-       declare p_idproduit int ;
-       insert into produit values (null, p_img, p_nom, p_quantite, p_prix ); 
+declare p_idproduit int ;
+INSERT INTO produit values (null, p_img, p_nom, p_quantite, p_prix );
 
-       select idproduit into p_idproduit from produit
-       where img = p_img and nom = p_nom and quantite = p_quantite and prix=p_prix ; 
-
-       insert into appareil values (p_idproduit, p_formatPellicule, p_nbPoses, p_focale, p_alimentation, p_dimension); 
+SELECT  idproduit into p_idproduit
+FROM produit
+WHERE img = p_img
+AND nom = p_nom
+AND quantite = p_quantite
+AND prix=p_prix ;
+INSERT INTO appareil values (p_idproduit, p_formatPellicule, p_nbPoses, p_focale, p_alimentation, p_dimension);
 end $
 delimiter ;
 --FIN de la procédure
 
 --Procédure stocker pour modifier un appareil
 delimiter $
-create procedure updateAppareil (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_formatPellicule int, IN p_nbPoses int, IN p_focale int, IN p_alimentation varchar(50), IN p_dimension varchar(50))
-begin 
-        UPDATE produit SET idproduit = p_idproduit, img = p_img, nom = p_nom, quantite = p_quantite, prix = p_prix WHERE idproduit = p_idproduit;
-        UPDATE appareil SET idproduit = p_idproduit, formatPellicule = p_formatPellicule, nbPoses = p_nbPoses, focale = p_focale, alimentation = p_alimentation, dimension = p_dimension WHERE idproduit = p_idproduit;
-end $
+CREATE procedure updateAppareil (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_formatPellicule int, IN p_nbPoses int, IN p_focale int, IN p_alimentation varchar(50), IN p_dimension varchar(50))
+begin UPDATE produit
+
+SET idproduit = p_idproduit, img = p_img, nom = p_nom, quantite = p_quantite, prix = p_prix
+WHERE idproduit = p_idproduit; UPDATE appareil
+
+SET idproduit = p_idproduit, formatPellicule = p_formatPellicule, nbPoses = p_nbPoses, focale = p_focale, alimentation = p_alimentation, dimension = p_dimension
+WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
+
 --Procédure stocker pour modifier une pellicule
 delimiter $
-create procedure updatePellicule (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_typeFilm varchar(50), IN p_developpement varchar(50), IN p_sensibilite varchar(50), IN p_format int)
-begin 
-        UPDATE produit SET idproduit = p_idproduit, img = p_img, nom = p_nom, quantite = p_quantite, prix = p_prix WHERE idproduit = p_idproduit;
-        UPDATE pellicule SET idproduit = p_idproduit, typeFilm = p_typeFilm, developpement = p_developpement, sensibilite = p_sensibilite, format = p_format WHERE idproduit = p_idproduit;
-end $
+CREATE procedure updatePellicule (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_typeFilm varchar(50), IN p_developpement varchar(50), IN p_sensibilite varchar(50), IN p_format int)
+begin UPDATE produit
+
+SET idproduit = p_idproduit, img = p_img, nom = p_nom, quantite = p_quantite, prix = p_prix
+WHERE idproduit = p_idproduit; UPDATE pellicule
+
+SET idproduit = p_idproduit, typeFilm = p_typeFilm, developpement = p_developpement, sensibilite = p_sensibilite, format = p_format
+WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
+
 --Procédure stocker pour modifier un objectif
 delimiter $
-create procedure updateObjectif (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_poids float, IN p_diametreMaxAndLongueur int, IN p_diametreFiltre int, IN p_moteurAutoFocus varchar(50), IN p_agrandissement varchar(50))
-begin 
-        UPDATE produit SET idproduit = p_idproduit, img = p_img, nom = p_nom, quantite = p_quantite, prix = p_prix WHERE idproduit = p_idproduit;
-        UPDATE objectif SET idproduit = p_idproduit, poids = p_poids, diametreMaxAndLongueur = p_diametreMaxAndLongueur, diametreFiltre = p_diametreFiltre, moteurAutoFocus = p_moteurAutoFocus, agrandissement = p_agrandissement WHERE idproduit = p_idproduit;
-end $
+CREATE procedure updateObjectif (IN p_idproduit int, IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_poids float, IN p_diametreMaxAndLongueur int, IN p_diametreFiltre int, IN p_moteurAutoFocus varchar(50), IN p_agrandissement varchar(50)) begin UPDATE produit
+
+SET idproduit = p_idproduit, img = p_img, nom = p_nom, quantite = p_quantite, prix = p_prix
+WHERE idproduit = p_idproduit; UPDATE objectif
+
+SET idproduit = p_idproduit, poids = p_poids, diametreMaxAndLongueur = p_diametreMaxAndLongueur, diametreFiltre = p_diametreFiltre, moteurAutoFocus = p_moteurAutoFocus, agrandissement = p_agrandissement
+WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
 
 --Procédure stocker pour supprimer un appareil
 delimiter  $
-create procedure deleteAppareil(IN p_idproduit int)
-begin
-        delete from appareil where idproduit = p_idproduit;
-        delete from produit where idproduit = p_idproduit;
-end  $
+CREATE procedure deleteAppareil(IN p_idproduit int) begin delete
+FROM appareil
+WHERE idproduit = p_idproduit; delete
+FROM produit
+WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
 
 --Procédure stocker pour afficher l'appareil dans son entiereté
 delimiter $
-create procedure selectEntireAppareil(IN p_idproduit int)
-begin
-    select p.idproduit, p.img, p.nom, p.quantite, p.prix, a.formatPellicule, a.nbPoses, a.focale, a.alimentation, a.dimension
-    from appareil a, produit p
-    where a.idproduit = p_idproduit
-    and p.idproduit = p_idproduit;
-end $
+CREATE procedure selectEntireAppareil(IN p_idproduit int) begin
+SELECT  p.idproduit
+       ,p.img
+       ,p.nom
+       ,p.quantite
+       ,p.prix
+       ,a.formatPellicule
+       ,a.nbPoses
+       ,a.focale
+       ,a.alimentation
+       ,a.dimension
+FROM appareil a, produit p
+WHERE a.idproduit = p_idproduit
+AND p.idproduit = p_idproduit; end $
 delimiter ; 
 --FIN
 
 --Procédure stocker pour insérer une pellicule
 delimiter $
-create procedure insertPellicule (IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_typeFilm varchar(50), IN p_developpement varchar(50), IN p_sensibilite varchar(50),IN p_format int)
-begin 
-       declare p_idproduit int ;
-       insert into produit values (null, p_img, p_nom, p_quantite, p_prix ); 
+CREATE procedure insertPellicule (IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_typeFilm varchar(50), IN p_developpement varchar(50), IN p_sensibilite varchar(50), IN p_format int) begin declare p_idproduit int ;
+INSERT INTO produit values (null, p_img, p_nom, p_quantite, p_prix );
 
-       select idproduit into p_idproduit from produit
-       where img = p_img and nom = p_nom and quantite = p_quantite and prix = p_prix ; 
-
-       insert into pellicule values (p_idproduit, p_typeFilm, p_developpement, p_sensibilite, p_format); 
-end $
+SELECT  idproduit into p_idproduit
+FROM produit
+WHERE img = p_img
+AND nom = p_nom
+AND quantite = p_quantite
+AND prix = p_prix ;
+INSERT INTO pellicule values (p_idproduit, p_typeFilm, p_developpement, p_sensibilite, p_format); end $
 delimiter ;
 --FIN de la procédure
 
 --Procédure stocker pour supprimer une pellicule
 delimiter  $
-create procedure deletePellicule(IN p_idproduit int)
-begin
-        delete from pellicule where idproduit = p_idproduit;
-        delete from produit where idproduit = p_idproduit;
-end  $
+CREATE procedure deletePellicule(IN p_idproduit int) begin delete
+FROM pellicule
+WHERE idproduit = p_idproduit; delete
+FROM produit
+WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
 
 --Procédure stocker pour afficher la pellicule dans son entiereté
 delimiter $
-create procedure selectEntirePellicule(IN p_idproduit int)
-begin
-    select p.idproduit, p.nom, p.quantite, p.prix, pell.typeFilm, pell.developpement, pell.sensibilite, pell.format
-    from pellicule pell, produit p
-    where pell.idproduit = p_idproduit
-    and p.idproduit = p_idproduit;
-end $
+CREATE procedure selectEntirePellicule(IN p_idproduit int) begin
+SELECT  p.idproduit
+       ,p.nom
+       ,p.quantite
+       ,p.prix
+       ,pell.typeFilm
+       ,pell.developpement
+       ,pell.sensibilite
+       ,pell.format
+FROM pellicule pell, produit p
+WHERE pell.idproduit = p_idproduit
+AND p.idproduit = p_idproduit; end $
 delimiter ; 
 --FIN
 
 --Procédure stocker pour insérer un objectif
 delimiter $
-create procedure insertObjectif (IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5,2), IN p_poids float, IN p_diametreMaxAndLongueur float, IN p_diametreFiltre float, IN p_moteurAutoFocus varchar(50), IN p_agrandissement varchar(50))
-begin 
-       declare p_idproduit int ;
-       insert into produit values (null, p_img, p_nom, p_quantite, p_prix ); 
+CREATE procedure insertObjectif (IN p_img varchar(50), IN p_nom varchar(50), IN p_quantite int, IN p_prix float(5, 2), IN p_poids float, IN p_diametreMaxAndLongueur float, IN p_diametreFiltre float, IN p_moteurAutoFocus varchar(50), IN p_agrandissement varchar(50)) begin declare p_idproduit int ;
+INSERT INTO produit values (null, p_img, p_nom, p_quantite, p_prix );
 
-       select idproduit into p_idproduit from produit
-       where img = p_img and nom = p_nom and quantite = p_quantite and prix=p_prix ; 
-
-       insert into objectif values (p_idproduit, p_poids, p_diametreMaxAndLongueur, p_diametreFiltre, p_moteurAutoFocus, p_agrandissement); 
-end $
+SELECT  idproduit into p_idproduit
+FROM produit
+WHERE img = p_img
+AND nom = p_nom
+AND quantite = p_quantite
+AND prix=p_prix ;
+INSERT INTO objectif values (p_idproduit, p_poids, p_diametreMaxAndLongueur, p_diametreFiltre, p_moteurAutoFocus, p_agrandissement); end $
 delimiter ;
 --FIN de la procédure
 
 --Procédure stocker pour supprimer un objectif
 delimiter  $
-create procedure deleteObjectif(IN p_idproduit int)
-begin
-        delete from objectif where idproduit = p_idproduit;
-        delete from produit where idproduit = p_idproduit;
-end  $
+CREATE procedure deleteObjectif(IN p_idproduit int) begin delete
+FROM objectif
+WHERE idproduit = p_idproduit; delete
+FROM produit
+WHERE idproduit = p_idproduit; end $
 delimiter ;
 --FIN
 
 --Procédure stocker pour afficher l'objectif dans son entiereté
 delimiter $
-create procedure selectEntireObjectif(IN p_idproduit int)
-begin
-    select p.idproduit, p.nom, p.quantite, p.prix, o.poids, o.diametreMaxAndLongueur, o.diametreFiltre, o.moteurAutoFocus, o.agrandissement
-    from produit p, objectif o
-    where o.idproduit = p_idproduit
-    and p.idproduit = p_idproduit;
-end $
+CREATE procedure selectEntireObjectif(IN p_idproduit int) begin
+SELECT  p.idproduit
+       ,p.nom
+       ,p.quantite
+       ,p.prix
+       ,o.poids
+       ,o.diametreMaxAndLongueur
+       ,o.diametreFiltre
+       ,o.moteurAutoFocus
+       ,o.agrandissement
+FROM produit p, objectif o
+WHERE o.idproduit = p_idproduit
+AND p.idproduit = p_idproduit; end $
 delimiter ; 
 --FIN
+
 --Procedure stocker d'insertion panier
 delimiter $
-create procedure insertPanier (IN p_idproduit int(3))
-begin
-    declare p_idpanier int(3) ;
-    insert into panier value (null, 0);
-    select distinct LAST_INSERT_ID() into p_idpanier from panier ; 
-    insert into contenir values (1, p_idproduit, p_idpanier);
-end $
+CREATE procedure insertPanier (IN p_idproduit int(3)) begin declare p_idpanier int(3) ;
+INSERT INTO panier value (null, 0);
+
+SELECT  distinct LAST_INSERT_ID() into p_idpanier
+FROM panier ;
+INSERT INTO contenir values (1, p_idproduit, p_idpanier); end $
 delimiter ;
 --FIN
---Prcédure stocker d'update contenir (classe liaison entre panier et produit)
+
+--Procédure stocker d'update contenir (classe liaison entre panier et produit)
 delimiter $
-create procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3), IN choix int)
-begin
-    declare nb int(3) ;
-     declare p_qte int(3) ;
-    select count(*) into nb from contenir where idproduit = p_idproduit; 
-    if nb = 0 then 
-        insert into contenir values (1, p_idproduit, p_idpanier);
+CREATE procedure updateContenir (IN p_idproduit int(3), IN p_idpanier int(3), IN choix int)
+begin 
+declare nb int(3); 
+declare p_qte int(3);
+declare qte_panier int(3);
+
+SELECT  COUNT(*) into nb
+FROM contenir
+WHERE idproduit = p_idproduit;
+
+SELECT COUNT(*) qte_panier 
+FROM contenir 
+WHERE idpanier = p_idpanier;
+if nb = 0 THEN
+    INSERT INTO contenir values (1, p_idproduit, p_idpanier); 
+else
+    SELECT  qte into p_qte
+    FROM contenir
+    WHERE idproduit = p_idproduit
+    AND idpanier = p_idpanier; 
+    if choix <0 THEN 
+        if p_qte >= 1 THEN 
+            update contenir
+            SET qte = qte + choix
+            WHERE idproduit = p_idproduit
+            AND idpanier = p_idpanier; 
+        end if; 
     else 
-        select qte into p_qte from contenir where idproduit = p_idproduit and idpanier = p_idpanier;
-        if  choix <0 then
-            if p_qte >= 1 then
-                update contenir set qte = qte + choix where idproduit = p_idproduit and idpanier = p_idpanier; 
-            end if; 
-        else 
-              update contenir set qte = qte + choix where idproduit = p_idproduit and idpanier = p_idpanier; 
+            update contenir
+            SET qte = qte + choix
+            WHERE idproduit = p_idproduit
+            AND idpanier = p_idpanier; 
+    end if;
+    if p_qte = 0 THEN
+        -- Suppression du produit du panier
+        DELETE FROM contenir 
+        WHERE idproduit = p_idproduit;
+        -- Met le prix à zéro s'il n'y a plus de produits dans le panier
+        if qte_panier = 0 THEN
+            UPDATE panier
+            SET prix = 0
+            WHERE idpanier = p_idpanier;
         end if;
-    end if; 
+    end if;
+end if; 
 end $
 delimiter ;
 --FIN
+
 ----------------------------------------------Fin procédures stockés--------------------------------------------------------------
 
 ----------------------------------------------Insertions--------------------------------------------------------------------------
@@ -309,7 +362,6 @@ call insertAppareil ('images/appareil/lc-120.jpg','Lomo LC-A 120', 9, 449.00, 12
 call insertAppareil ('images/appareil/sprocket.jpg','Sprocket Rocket', 17, 79.00, 35, 21, 32, 'Sans pile', '20*7*4');
 
 -- Pellicules
-
 call insertPellicule ('images/pellicule/berlinkino35mm.jpg','Berlin Kino 400', 50, 9.90,'N&B', 'C-41', '400', 35);
 
 call insertPellicule ('images/pellicule/packcolornegative32mm.jpg','Pack color negative 800', 43, 35.90,'Couleur', 'C-41', '800', 35);
@@ -331,46 +383,43 @@ call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14,
 call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
 
 -- Objectifs
-
 call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 299.99, 0.500, 80, 80, 'Manuel', '82mm');
 
-insert into user values
-    (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
+INSERT INTO user values (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), 
+                        (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
 
--- insert into livraison values
---     (1, "", "", "", "", ""), (2, "", "", "", "", "");
-
--- insert into panier values
---     (1, "0"), (2, "0");
--- insert into choisir values
---     (1, 1, 1);
--- call updateAppareil (1, "images/photoAppareil.jpg", "NOKIA-35", 55, 445.99, 155, 145, 135, "USB-C", "15x40x50");
--- call updatePellicule(3, "images/photoAppareil2.jpg", "test", "test", "test", "test", "test", "test", "test");
 -----------------------------------------------Fin insertions---------------------------------------------------------------------
 
 -----------------------------------------------Triggers---------------------------------------------------------------------
---TRIGGER POUR INSERER LE PRIX DANS LE PANIER QUAND L'UTILISATEUR ACHETE UN PRODUIT AVEC UNE CERTAINE QUANTITE
+
+--TRIGGER POUR INSERER LE PRIX DANS LE PANIER
 delimiter $
-create trigger insertContenir after insert on contenir
-for each row 
-begin
-    declare p_prix float;
-    select prix into p_prix from produit where idproduit = new.idproduit;
-    update panier set prix = prix + p_prix * new.qte where idpanier = new.idpanier;
-end $
+CREATE trigger insertContenir after insert
+ON contenir for each row begin declare p_prix float;
+
+SELECT  prix into p_prix
+FROM produit
+WHERE idproduit = new.idproduit; update panier
+
+SET prix = prix + p_prix * new.qte
+WHERE idpanier = new.idpanier; end $
 delimiter ;
 --FIN DU TRIGGER
 
 --TRIGGER POUR MODIFIER LE PRIX QUAND L'UTILISATEUR MODIFIE LA QUANTITE D'UN PRODUIT DANS SON PANIER
 delimiter $
-create trigger updateContenir after update on contenir
-for each row 
-begin
-    declare p_prix float;
-    select prix into p_prix from produit where idproduit = new.idproduit;
-    update panier set prix = prix - p_prix * old.qte where idpanier = new.idpanier;
-    update panier set prix = prix + p_prix * new.qte where idpanier = new.idpanier;
-end $
+CREATE trigger updateContenir after update
+ON contenir for each row begin declare p_prix float;
+
+SELECT  prix into p_prix
+FROM produit
+WHERE idproduit = new.idproduit; update panier
+
+SET prix = prix - p_prix * old.qte
+WHERE idpanier = new.idpanier; update panier
+
+SET prix = prix + p_prix * new.qte
+WHERE idpanier = new.idpanier; end $
 delimiter ;
 --FIN DU TRIGGER
 
@@ -408,31 +457,71 @@ delimiter ;
 -------------------------------------------Fin Triggers---------------------------------------------------------------------
 
 -------------------------------------------Debut vues---------------------------------------------------------
-create view viewAppareil as (
-    select p.idproduit, p.img, p.nom, p.quantite, p.prix, a.formatPellicule, a.nbPoses, a.focale, a.alimentation, a.dimension
-    from appareil a, produit p
-    where a.idproduit = p.idproduit
-);
-create view viewPellicule as (
-    select p.idproduit, p.img, p.nom, p.quantite, p.prix, pell.typeFilm, pell.developpement, pell.sensibilite, pell.format
-    from pellicule pell, produit p
-    where pell.idproduit = p.idproduit
-);
-create view viewObjectif as (
-    select p.idproduit, p.img, p.nom, p.quantite, p.prix, o.poids, o.diametreMaxAndLongueur, o.diametreFiltre, o.moteurAutoFocus, o.agrandissement
-    from objectif o, produit p
-    where o.idproduit = p.idproduit
-);
-create view viewSumPanier as(
-    select sum(c.idproduit)
-    from contenir c, panier p
-    where c.idpanier=p.idpanier
-);
 
-create view vuePanier as(
-    select  p.nom, p.idproduit, p.prix, c.qte, pn.prix as total
-    from contenir c, panier pn, produit p
-    where c.idpanier=pn.idpanier
-    and p.idproduit = c.idproduit
-);
+-- Vue appareil
+CREATE view viewAppareil AS (
+SELECT  p.idproduit
+       ,p.img
+       ,p.nom
+       ,p.quantite
+       ,p.prix
+       ,a.formatPellicule
+       ,a.nbPoses
+       ,a.focale
+       ,a.alimentation
+       ,a.dimension
+FROM appareil a, produit p
+WHERE a.idproduit = p.idproduit );
+-- FIN
+
+-- Vue pellicule
+CREATE view viewPellicule AS (
+SELECT  p.idproduit
+       ,p.img
+       ,p.nom
+       ,p.quantite
+       ,p.prix
+       ,pell.typeFilm
+       ,pell.developpement
+       ,pell.sensibilite
+       ,pell.format
+FROM pellicule pell, produit p
+WHERE pell.idproduit = p.idproduit );
+-- FIN
+
+-- Vue objectif
+CREATE view viewObjectif AS (
+SELECT  p.idproduit
+       ,p.img
+       ,p.nom
+       ,p.quantite
+       ,p.prix
+       ,o.poids
+       ,o.diametreMaxAndLongueur
+       ,o.diametreFiltre
+       ,o.moteurAutoFocus
+       ,o.agrandissement
+FROM objectif o, produit p
+WHERE o.idproduit = p.idproduit );
+-- FIN
+
+-- Vue somme panier
+CREATE view viewSumPanier as(
+SELECT  SUM(c.idproduit)
+FROM contenir c, panier p
+WHERE c.idpanier=p.idpanier );
+-- FIN
+
+-- Vue panier
+CREATE view vuePanier as(
+SELECT  p.nom
+       ,p.idproduit
+       ,p.prix
+       ,c.qte
+       ,pn.prix AS total
+FROM contenir c, panier pn, produit p
+WHERE c.idpanier=pn.idpanier
+AND p.idproduit = c.idproduit );
+-- FIN
+
 -------------------------------------Fin vues---------------------------------------------------------

@@ -1,10 +1,10 @@
 <h2 class="contentProduit"> Insertion d'un appareil</h2>
-<form class="rechercheProduit" method="post" action="">
+<form class="rechercheProduit" method="post" enctype="multipart/form-data" action="">
 	<table class="styled-tableInsert"> 
 
 		<tr id="ligneTab">
 			<td> <label for="img">Image</label> </td> 
-			<td> <input type="file" name="img" value="'/home/student/lomography_ppe/'<?php if($lAppareil!=null) echo $lAppareil['img'];?>"></td>
+			<td> <input type="file" name="img" value="<?php if($lAppareil!=null) echo $lAppareil['img'];?>"></td>
 		</tr>
 		<tr id="ligneTab">
 			<td> Nom </td> 

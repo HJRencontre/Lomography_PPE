@@ -29,7 +29,10 @@
 	if(isset($_POST['Modifier']))
 	{
 		$unControleur->setTable("viewAppareil");
-		$tab = array("img"=>"images/".$_POST['img'],
+		// var_dump($_FILES["img"]);
+		$image= $_FILES["img"]["name"];
+		copy($_FILES["img"]["tmp_name"], "./images/appareil/".$image);
+		$tab = array("img"=>"images/appareil/". $image,
 					"nom"=>$_POST['nom'], 
 					"quantite"=>$_POST['quantite'], 
 					"prix"=>$_POST['prix'], 
@@ -41,7 +44,7 @@
 					);
 		$where = array("idproduit"=>$_GET['idproduit']);
 		$unControleur->updateProc("updateAppareil", $where, $tab );
-		header("Location: index.php?pn=gestionAppareilsAdmin");
+		//header("Location: index.php?pn=gestionAppareilsAdmin");
 	}
 
 		if(isset($_POST['Valider']))
