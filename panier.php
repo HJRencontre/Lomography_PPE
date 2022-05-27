@@ -35,7 +35,7 @@
         {
             case "minus" : $unControleur->updateContenir($idproduit, $_SESSION['idpanier'],-1);break;
             case "plus" : $unControleur->updateContenir($idproduit, $_SESSION['idpanier'],+1);break;
-            case "sup" : break;
+            case "sup" : $unControleur->updateContenir($idproduit, $_SESSION['idpanier'],0);break;
         }
         header("Location: index.php?pn=panier");
     }

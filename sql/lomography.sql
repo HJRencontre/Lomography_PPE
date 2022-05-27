@@ -291,6 +291,11 @@ begin
 declare nb int(3); 
 declare p_qte int(3);
 declare qte_panier int(3);
+declare p_prix int(3);
+
+select prix into p_prix
+from produit
+where idproduit = p_idproduit;
 
 SELECT  COUNT(*) into nb
 FROM contenir
@@ -302,7 +307,7 @@ WHERE idpanier = p_idpanier;
 if nb = 0 THEN
     INSERT INTO contenir values (1, p_idproduit, p_idpanier); 
 else
-    SELECT  qte into p_qte
+    SELECT qte into p_qte
     FROM contenir
     WHERE idproduit = p_idproduit
     AND idpanier = p_idpanier; 
@@ -329,6 +334,16 @@ else
             SET prix = 0
             WHERE idpanier = p_idpanier;
         end if;
+    end if;
+    if choix = 0 THEN
+        update contenir
+        set qte = 0
+        where idproduit = p_idproduit
+        and idpanier = p_idpanier;
+
+        DELETE FROM contenir 
+        WHERE idproduit = p_idproduit
+        and idpanier = p_idpanier;
     end if;
 end if; 
 end $
