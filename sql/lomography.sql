@@ -319,7 +319,7 @@ else
             WHERE idproduit = p_idproduit
             AND idpanier = p_idpanier; 
     end if;
-    if p_qte = 0 THEN
+    if p_qte = 1 AND choix = -1 THEN
         -- Suppression du produit du panier
         DELETE FROM contenir 
         WHERE idproduit = p_idproduit;
@@ -380,8 +380,6 @@ call insertPellicule ('images/pellicule/packredscale120.jpg','Pack Quartet 200',
 
 call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
 
-call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
-
 -- Objectifs
 call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 299.99, 0.500, 80, 80, 'Manuel', '82mm');
 
@@ -395,16 +393,56 @@ INSERT INTO user values (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.
 --TRIGGER POUR INSERER LE PRIX DANS LE PANIER
 delimiter $
 CREATE trigger insertContenir after insert
-ON contenir for each row begin declare p_prix float;
+ON contenir 
+for each row 
+begin 
+
+declare p_prix float;
 
 SELECT  prix into p_prix
 FROM produit
 WHERE idproduit = new.idproduit; update panier
 
 SET prix = prix + p_prix * new.qte
-WHERE idpanier = new.idpanier; end $
+WHERE idpanier = new.idpanier;
+end $
 delimiter ;
 --FIN DU TRIGGER
+
+-- --TEST CREATION DU TRIGGER MAIS AU FINAL PAS BESOIN
+-- --TRIGGER POUR SUPP UN PRODUIT SI LA QTE EST PASSE A 0
+-- delimiter $
+-- CREATE trigger suppProduit after update
+-- ON contenir 
+-- for each row
+-- begin
+
+-- declare p_qte int(3);
+-- declare qte_panier int(3);
+
+-- SELECT COUNT(*) into qte_panier 
+-- FROM contenir 
+-- WHERE idpanier = p_idpanier;
+
+-- SELECT qte into p_qte
+--     FROM contenir
+--     WHERE idproduit = p_idproduit
+--     AND idpanier = p_idpanier;
+
+--     if p_qte = 0 THEN
+--         -- Suppression du produit du panier
+--         DELETE FROM contenir 
+--         WHERE idproduit = p_idproduit;
+--         -- Met le prix à zéro s'il n'y a plus de produits dans le panier
+--         if qte_panier = 0 THEN
+--             UPDATE panier
+--             SET prix = 0
+--             WHERE idpanier = p_idpanier;
+--         end if;
+--     end if;
+-- end$
+-- delimiter ;
+-- --FIN DU TRIGGER DE SUPPRESSION DE PRODUIT SI QTE EST A 0
 
 --TRIGGER POUR MODIFIER LE PRIX QUAND L'UTILISATEUR MODIFIE LA QUANTITE D'UN PRODUIT DANS SON PANIER
 delimiter $
