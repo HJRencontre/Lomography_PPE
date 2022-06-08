@@ -468,6 +468,13 @@ insert into SAV values  (1, "testErwann1", 1, 1, 1),
 -- and u.iduser = s.iduser
 -- and u.iduser = 1;
 
+-- select l.idlivraison, p.prix, l.serviceLivraison, l.adresse, l.typeLivraison, u.nom, u.prenom
+-- from livraison l, panier p, user u, choisir c
+-- where c.idlivraison = l.idlivraison
+-- and c.idpanier = p.idpanier
+-- and c.iduser = u.iduser
+-- order by idlivraison;
+
 -- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
 -- from livraison l, panier p, user u, choisir c, SAV s
 -- where c.idlivraison = l.idlivraison
