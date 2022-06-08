@@ -102,6 +102,28 @@ create table panier(
 );
 -- FIN
 
+-- create table SAV(
+--     idSAV int(3) not null auto_increment,
+--     description varchar(50),
+--     idlivraison int,
+--     iduser int,
+--     idpanier int,
+--     primary key (idSAV),
+--     foreign key (idlivraison, iduser, idpanier) references choisir(idlivraison, iduser, idpanier)
+-- );
+
+create table SAV(
+    idSAV int(3) not null auto_increment,
+    description varchar(50),
+    idlivraison int,
+    iduser int,
+    idpanier int,
+    primary key(idSAV),
+    foreign key (idlivraison) references livraison(idlivraison),
+    foreign key (iduser) references user(iduser),
+    foreign key (idpanier) references panier(idpanier)
+);
+
 -----------------------------------------------Procédures stockés---------------------------------------------------------------
 --Procédure stocker pour insérer un appareil
 delimiter $
@@ -400,6 +422,68 @@ call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 
 
 INSERT INTO user values (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), 
                         (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
+
+insert into choisir values (1,1,1),
+                           (2,2,2),
+                           (3,1,3),
+                           (4,2,4),
+                           (5,1,5),
+                           (6,2,6);
+
+insert into panier values(1,499.99),
+                         (2,29.99),
+                         (3,99.99),
+                         (4,39.50),
+                         (5,49.00),
+                         (6,9.99);
+
+insert into livraison values(1, "2022-04-01", "2022-04-05", 'DPD', "9 rue de la bièvre", "Point relais"),
+                            (2, "2022-04-20", "2022-04-26", 'Mondial Relay', "5 rue de Paris", "Point relais"),
+                            (3, "2022-04-13", "2022-04-17", 'DPD', "3 rue de Creteil", "A domicile"),
+                            (4, "2022-05-03", "2022-05-08", 'Chronopost', "3 rue de Lyon", "Point relais"),
+                            (5, "2022-05-10", "2022-05-14", 'Chronopost', "7 rue de Toulouse", "A domicile"),
+                            (6, "2022-06-18", "2022-06-22", 'Mondial Relay', "2 rue du Général Leclerc", "A domicile");
+
+insert into SAV values  (1, "testErwann1", 1, 1, 1),
+                        (2, "testHermann1", 2, 2, 2),
+                        (3, "testErwann2", 3, 1, 3),
+                        (4, "testHermann2", 4, 2, 4),
+                        (5, "testErwann3", 5, 1, 5),
+                        (6, "testHermann3", 6, 2, 6);
+
+
+-- select l.idlivraison
+-- from livraison l, user u, choisir C
+-- where l.idlivraison = c.idlivraison
+-- and u.iduser = 1
+-- and u.iduser = c.iduser;
+
+-- select l.idlivraison, l.adresse, p.prix, u.nom, u.prenom, s.description
+-- from livraison l, panier p, user u, choisir c, SAV s
+-- where c.idlivraison = l.idlivraison
+-- and l.idlivraison = s.idlivraison
+-- and c.idpanier = p.idpanier
+-- and p.idpanier = s.idpanier
+-- and c.iduser = u.iduser
+-- and u.iduser = s.iduser
+-- and u.iduser = 1;
+
+-- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
+-- from livraison l, panier p, user u, choisir c, SAV s
+-- where c.idlivraison = l.idlivraison
+-- and l.idlivraison = s.idlivraison
+-- and c.idpanier = p.idpanier
+-- and p.idpanier = s.idpanier
+-- and c.iduser = u.iduser
+-- and u.iduser = s.iduser
+-- and u.iduser = 1;
+
+-- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
+-- from livraison l, user u, choisir c
+-- where c.idlivraison = l.idlivraison
+-- and c.iduser = u.iduser
+-- and u.iduser = 1;
+
 
 -----------------------------------------------Fin insertions---------------------------------------------------------------------
 
