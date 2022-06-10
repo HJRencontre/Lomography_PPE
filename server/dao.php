@@ -25,8 +25,19 @@ class DAO {
 		if($this->resource=="contenir"){
 			$whereID = " where idpanier =";
 		}
+		
 
         $query = "SELECT * FROM ".$this->resource. ($id ? $whereID.$id : "");
+
+		if($this->resource=="livraisondetails"){
+			$query= "SELECT  produit.*, contenir.qte, panier.prix
+			from produit 
+			LEFT JOIN contenir on contenir.idproduit= produit.idproduit
+			LEFT JOIN panier on contenir.idpanier= panier.idpanier
+			LEFT JOIN choisir on choisir.idpanier= panier.idpanier
+			LEFT JOIN livraison on choisir.idlivraison= livraison.idlivraison
+			WHERE livraison.idlivraison=$id;";
+		}
         $response = array();
         $result = mysqli_query($this->conn, $query);
         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -37,7 +48,9 @@ class DAO {
             },$row);
             $response[] = $row;
         }
-        $response = ($id ? $response[0] : $response); 
+		if($this->resource!="livraisondetails"){
+			$response = ($id ? $response[0] : $response); 
+		}
         header('Content-Type: application/json');
 		echo json_encode($response, JSON_PRETTY_PRINT);
     }
@@ -67,6 +80,22 @@ class DAO {
 		header('Content-Type: application/json');
 		echo json_encode($response);
     }
+
+	public function connection()
+	{
+		$email = $_POST['email'];
+		$mdp = $_POST['mdp'];
+		$query="select email, mdp from user where email=".$email."and mdp=".$mdp.";";
+		if(mysqli_query($this->conn, $query))
+		{
+			$response=array(
+				'status' => 1,
+				'status_message' =>'Connecté avec succès.'
+			);
+		}
+		header('Content-Type: application/json');
+		echo json_encode($response);
+	}
 
     public function update($id){
 		$whereID = " where id=";

@@ -30,6 +30,7 @@ switch($request_method)
         // Ajouter une ressources
         $dao->add();
         break;
+        
     case 'PUT':
         // Modifier un produit
         $id = intval($_GET["id"]);
