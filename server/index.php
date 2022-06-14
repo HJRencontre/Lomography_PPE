@@ -28,7 +28,7 @@ switch($request_method)
         break;
     case 'POST':
         // Ajouter une ressources
-        $dao->add();
+        $dao->connection();
         break;
         
     case 'PUT':

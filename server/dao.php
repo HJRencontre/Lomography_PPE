@@ -29,14 +29,19 @@ class DAO {
 
         $query = "SELECT * FROM ".$this->resource. ($id ? $whereID.$id : "");
 
+		if($this->resource=="livraison"){
+			$query = "SELECT * FROM  livraison inner join choisir on choisir.idlivraison= livraison.idlivraison ". ($id ? $whereID.$id : "");
+		}
+
 		if($this->resource=="livraisondetails"){
-			$query= "SELECT  produit.*, contenir.qte, panier.prix
+			$query= "SELECT produit.idproduit, produit.img, produit.nom, produit.prix, contenir.qte, panier.prix as prixPanier
 			from produit 
-			LEFT JOIN contenir on contenir.idproduit= produit.idproduit
-			LEFT JOIN panier on contenir.idpanier= panier.idpanier
-			LEFT JOIN choisir on choisir.idpanier= panier.idpanier
-			LEFT JOIN livraison on choisir.idlivraison= livraison.idlivraison
+			LEFT JOIN contenir on contenir.idproduit = produit.idproduit
+			LEFT JOIN panier on contenir.idpanier = panier.idpanier
+			LEFT JOIN choisir on choisir.idpanier = panier.idpanier
+			LEFT JOIN livraison on choisir.idlivraison = livraison.idlivraison
 			WHERE livraison.idlivraison=$id;";
+			//var_dump($query);
 		}
         $response = array();
         $result = mysqli_query($this->conn, $query);
@@ -85,12 +90,20 @@ class DAO {
 	{
 		$email = $_POST['email'];
 		$mdp = $_POST['mdp'];
-		$query="select email, mdp from user where email=".$email."and mdp=".$mdp.";";
-		if(mysqli_query($this->conn, $query))
+		$query="select iduser, email, mdp from user where email='".$email."' and mdp='".$mdp."';";
+		$result = mysqli_query($this->conn, $query);
+		$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		if($data)
 		{
 			$response=array(
-				'status' => 1,
+				'status' => 200,
+				'userid' => $data["iduser"],
 				'status_message' =>'Connecté avec succès.'
+			);
+		}else{
+			$response=array(
+				'status' => 403,
+				'status_message' =>'No authorized.'
 			);
 		}
 		header('Content-Type: application/json');
