@@ -544,7 +544,7 @@ insert into panier values(1,0),
                          (6,0);
 
 insert into contenir values (2, 2, 1),
-                            
+                            (4, 1, 1),
                             (1, 4, 2),
                             (3, 12, 3),
                             (2, 15, 4),
