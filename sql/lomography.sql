@@ -374,126 +374,6 @@ delimiter ;
 
 ----------------------------------------------Fin procédures stockés--------------------------------------------------------------
 
-----------------------------------------------Insertions--------------------------------------------------------------------------
--- Appareils
-call insertAppareil ('images/appareil/actionsampler.jpg','ActionSampler', 20, 29.99, 35, 36, 35, 'CR123A', '15*10*3');
-
-call insertAppareil ('images/appareil/dianaBaby.jpg','Diana Baby + Objectif 12mm', 20, 34.90, 110, 12, 35, 'CR23V', '10*9*3');
-
-call insertAppareil ('images/appareil/fisheyejpg.jpg','Fisheye', 10, 59.00, 35, 36, 35, 'AAA*2', '15*10*3');
-
-call insertAppareil ('images/appareil/horizon.jpg','Horizon', 30, 299.00, 35, 21, 29, 'AA*2', '16*12*5');
-
-call insertAppareil ('images/appareil/jetable.jpg','Appareil jetable rechargeable', 50, 29.00, 35, 39, 35, 'AA*2', '12*7*5');
-
-call insertAppareil ('images/appareil/konstruktor.jpg','Konstruktor', 43, 39.00, 35, 35, 35, 'A*2', '16*11*5');
-
-call insertAppareil ('images/appareil/lc-a.jpg','Lomo LC-A+', 22, 299.00, 35, 36, 35, 'Sans pile', '16*12*4');
-
-call insertAppareil ('images/appareil/lc-wide.jpg','Lomo LC-Wide', 34, 399.00, 35, 36, 35, 'Sans pile', '16*12*4');
-
-call insertAppareil ('images/appareil/lubitel.jpg','Lubitel 166B', 12, 399.00, 120, 12, 52, 'Sans pile', '20*10*10');
-
-call insertAppareil ('images/appareil/lc-120.jpg','Lomo LC-A 120', 9, 449.00, 120, 58, 16, 'Sans pile', '18*13*5');
-
-call insertAppareil ('images/appareil/sprocket.jpg','Sprocket Rocket', 17, 79.00, 35, 21, 32, 'Sans pile', '20*7*4');
-
--- Pellicules
-call insertPellicule ('images/pellicule/berlinkino35mm.jpg','Berlin Kino 400', 50, 9.90,'N&B', 'C-41', '400', 35);
-
-call insertPellicule ('images/pellicule/packcolornegative32mm.jpg','Pack color negative 800', 43, 35.90,'Couleur', 'C-41', '800', 35);
-
-call insertPellicule ('images/pellicule/packcolornegative120.jpg','Pack color negative 100', 23, 46.50,'Couleur', 'C-41', '100', 120);
-
-call insertPellicule ('images/pellicule/packduet35mm.jpg','Pack duet 200', 18, 24.99,'Couleur', 'E-56', '200', 35);
-
-call insertPellicule ('images/pellicule/packladygrey120.jpg','Pack Lady Grey 400', 28, 46.50,'Couleur', 'Cafénol', '400', 120);
-
-call insertPellicule ('images/pellicule/packquartet35mm.jpg','Pack Quartet 200', 5, 53.24,'Mixte', 'C-41', '200', 35);
-
-call insertPellicule ('images/pellicule/packredscale35.jpg 200','Pack Redscale ', 8, 36.00,'Couleur', 'C-41', '50-200', 35);
-
-call insertPellicule ('images/pellicule/packredscale120.jpg','Pack Quartet 200', 2, 63.24,'Couleur', 'C-41', '50-200', 120);
-
-call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
-
--- Objectifs
-call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 299.99, 0.500, 80, 80, 'Manuel', '82mm');
-
-INSERT INTO user values (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), 
-                        (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
-
-insert into choisir values (1,1,1),
-                           (2,2,2),
-                           (3,1,3),
-                           (4,2,4),
-                           (5,1,5),
-                           (6,2,6);
-
-insert into panier values(1,499.99),
-                         (2,29.99),
-                         (3,99.99),
-                         (4,39.50),
-                         (5,49.00),
-                         (6,9.99);
-
-insert into livraison values(1, "2022-04-01", "2022-04-05", 'DPD', "9 rue de la bièvre", "Point relais"),
-                            (2, "2022-04-20", "2022-04-26", 'Mondial Relay', "5 rue de Paris", "Point relais"),
-                            (3, "2022-04-13", "2022-04-17", 'DPD', "3 rue de Creteil", "A domicile"),
-                            (4, "2022-05-03", "2022-05-08", 'Chronopost', "3 rue de Lyon", "Point relais"),
-                            (5, "2022-05-10", "2022-05-14", 'Chronopost', "7 rue de Toulouse", "A domicile"),
-                            (6, "2022-06-18", "2022-06-22", 'Mondial Relay', "2 rue du Général Leclerc", "A domicile");
-
-insert into SAV values  (1, "testErwann1", 1, 1, 1),
-                        (2, "testHermann1", 2, 2, 2),
-                        (3, "testErwann2", 3, 1, 3),
-                        (4, "testHermann2", 4, 2, 4),
-                        (5, "testErwann3", 5, 1, 5),
-                        (6, "testHermann3", 6, 2, 6);
-
-
--- select l.idlivraison
--- from livraison l, user u, choisir C
--- where l.idlivraison = c.idlivraison
--- and u.iduser = 1
--- and u.iduser = c.iduser;
-
--- select l.idlivraison, l.adresse, p.prix, u.nom, u.prenom, s.description
--- from livraison l, panier p, user u, choisir c, SAV s
--- where c.idlivraison = l.idlivraison
--- and l.idlivraison = s.idlivraison
--- and c.idpanier = p.idpanier
--- and p.idpanier = s.idpanier
--- and c.iduser = u.iduser
--- and u.iduser = s.iduser
--- and u.iduser = 1;
-
--- select l.idlivraison, p.prix, l.serviceLivraison, l.adresse, l.typeLivraison, u.nom, u.prenom
--- from livraison l, panier p, user u, choisir c
--- where c.idlivraison = l.idlivraison
--- and c.idpanier = p.idpanier
--- and c.iduser = u.iduser
--- order by idlivraison;
-
--- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
--- from livraison l, panier p, user u, choisir c, SAV s
--- where c.idlivraison = l.idlivraison
--- and l.idlivraison = s.idlivraison
--- and c.idpanier = p.idpanier
--- and p.idpanier = s.idpanier
--- and c.iduser = u.iduser
--- and u.iduser = s.iduser
--- and u.iduser = 1;
-
--- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
--- from livraison l, user u, choisir c
--- where c.idlivraison = l.idlivraison
--- and c.iduser = u.iduser
--- and u.iduser = 1;
-
-
------------------------------------------------Fin insertions---------------------------------------------------------------------
-
 -----------------------------------------------Triggers---------------------------------------------------------------------
 
 --TRIGGER POUR INSERER LE PRIX DANS LE PANIER
@@ -599,6 +479,141 @@ delimiter ;
 --     insert into 
 --
 -------------------------------------------Fin Triggers---------------------------------------------------------------------
+
+----------------------------------------------Insertions--------------------------------------------------------------------------
+-- Appareils
+call insertAppareil ('images/appareil/actionsampler.jpg','ActionSampler', 20, 29.99, 35, 36, 35, 'CR123A', '15*10*3');
+
+call insertAppareil ('images/appareil/dianaBaby.jpg','Diana Baby + Objectif 12mm', 20, 34.90, 110, 12, 35, 'CR23V', '10*9*3');
+
+call insertAppareil ('images/appareil/fisheyejpg.jpg','Fisheye', 10, 59.00, 35, 36, 35, 'AAA*2', '15*10*3');
+
+call insertAppareil ('images/appareil/horizon.jpg','Horizon', 30, 299.00, 35, 21, 29, 'AA*2', '16*12*5');
+
+call insertAppareil ('images/appareil/jetable.jpg','Appareil jetable rechargeable', 50, 29.00, 35, 39, 35, 'AA*2', '12*7*5');
+
+call insertAppareil ('images/appareil/konstruktor.jpg','Konstruktor', 43, 39.00, 35, 35, 35, 'A*2', '16*11*5');
+
+call insertAppareil ('images/appareil/lc-a.jpg','Lomo LC-A+', 22, 299.00, 35, 36, 35, 'Sans pile', '16*12*4');
+
+call insertAppareil ('images/appareil/lc-wide.jpg','Lomo LC-Wide', 34, 399.00, 35, 36, 35, 'Sans pile', '16*12*4');
+
+call insertAppareil ('images/appareil/lubitel.jpg','Lubitel 166B', 12, 399.00, 120, 12, 52, 'Sans pile', '20*10*10');
+
+call insertAppareil ('images/appareil/lc-120.jpg','Lomo LC-A 120', 9, 449.00, 120, 58, 16, 'Sans pile', '18*13*5');
+
+call insertAppareil ('images/appareil/sprocket.jpg','Sprocket Rocket', 17, 79.00, 35, 21, 32, 'Sans pile', '20*7*4');
+
+-- Pellicules
+call insertPellicule ('images/pellicule/berlinkino35mm.jpg','Berlin Kino 400', 50, 9.90,'N&B', 'C-41', '400', 35);
+
+call insertPellicule ('images/pellicule/packcolornegative32mm.jpg','Pack color negative 800', 43, 35.90,'Couleur', 'C-41', '800', 35);
+
+call insertPellicule ('images/pellicule/packcolornegative120.jpg','Pack color negative 100', 23, 46.50,'Couleur', 'C-41', '100', 120);
+
+call insertPellicule ('images/pellicule/packduet35mm.jpg','Pack duet 200', 18, 24.99,'Couleur', 'E-56', '200', 35);
+
+call insertPellicule ('images/pellicule/packladygrey120.jpg','Pack Lady Grey 400', 28, 46.50,'Couleur', 'Cafénol', '400', 120);
+
+call insertPellicule ('images/pellicule/packquartet35mm.jpg','Pack Quartet 200', 5, 53.24,'Mixte', 'C-41', '200', 35);
+
+call insertPellicule ('images/pellicule/packredscale35.jpg 200','Pack Redscale ', 8, 36.00,'Couleur', 'C-41', '50-200', 35);
+
+call insertPellicule ('images/pellicule/packredscale120.jpg','Pack Quartet 200', 2, 63.24,'Couleur', 'C-41', '50-200', 120);
+
+call insertPellicule ('images/pellicule/metropolis120.jpg','Metropolis 400', 14, 11.00,'N&B', 'Cafénol', '50-400', 120);
+
+-- Objectifs
+call insertObjectif ('images/objectif/photoObjectif1.jpg','Pitzval 55 Mark', 4, 299.99, 0.500, 80, 80, 'Manuel', '82mm');
+
+INSERT INTO user values (null, "Jouvet", "Erwann", "1 rue de Gentilly", "erwann.j@gmail.com", "erwann", "user"), 
+                        (null, "Rencontre", "Hermann", "1 rue d'Ivry", "hermann.r@gmail.com", "hermann", "admin");
+
+insert into choisir values (1,1,1),
+                           (2,2,2),
+                           (3,1,3),
+                           (4,2,4),
+                           (5,1,5),
+                           (6,2,6);
+
+insert into panier values(1,0),
+                         (2,0),
+                         (3,0),
+                         (4,0),
+                         (5,0),
+                         (6,0);
+
+insert into contenir values (2, 2, 1),
+                            
+                            (1, 4, 2),
+                            (3, 12, 3),
+                            (2, 15, 4),
+                            (1, 21, 5),
+                            (1, 21, 6);
+
+-- insert into panier values(1,69.80),
+                         --(2,299.00),
+                         --(3,29.70),
+                         --(4,49.98),
+                         --(5,299.99),
+                         --(6,299.99);
+
+insert into livraison values(1, "2022-04-01", "2022-04-05", 'DPD', "9 rue de la bièvre", "Point relais"),
+                            (2, "2022-04-20", "2022-04-26", 'Mondial Relay', "5 rue de Paris", "Point relais"),
+                            (3, "2022-04-13", "2022-04-17", 'DPD', "3 rue de Creteil", "A domicile"),
+                            (4, "2022-05-03", "2022-05-08", 'Chronopost', "3 rue de Lyon", "Point relais"),
+                            (5, "2022-05-10", "2022-05-14", 'Chronopost', "7 rue de Toulouse", "A domicile"),
+                            (6, "2022-06-18", "2022-06-22", 'Mondial Relay', "2 rue du Général Leclerc", "A domicile");
+
+insert into SAV values  (1, "testErwann1", 1, 1, 1),
+                        (2, "testHermann1", 2, 2, 2),
+                        (3, "testErwann2", 3, 1, 3),
+                        (4, "testHermann2", 4, 2, 4),
+                        (5, "testErwann3", 5, 1, 5),
+                        (6, "testHermann3", 6, 2, 6);
+
+
+-- select l.idlivraison
+-- from livraison l, user u, choisir C
+-- where l.idlivraison = c.idlivraison
+-- and u.iduser = 1
+-- and u.iduser = c.iduser;
+
+-- select l.idlivraison, l.adresse, p.prix, u.nom, u.prenom, s.description
+-- from livraison l, panier p, user u, choisir c, SAV s
+-- where c.idlivraison = l.idlivraison
+-- and l.idlivraison = s.idlivraison
+-- and c.idpanier = p.idpanier
+-- and p.idpanier = s.idpanier
+-- and c.iduser = u.iduser
+-- and u.iduser = s.iduser
+-- and u.iduser = 1;
+
+-- select l.idlivraison, p.prix, l.serviceLivraison, l.adresse, l.typeLivraison, u.nom, u.prenom
+-- from livraison l, panier p, user u, choisir c
+-- where c.idlivraison = l.idlivraison
+-- and c.idpanier = p.idpanier
+-- and c.iduser = u.iduser
+-- order by idlivraison;
+
+-- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
+-- from livraison l, panier p, user u, choisir c, SAV s
+-- where c.idlivraison = l.idlivraison
+-- and l.idlivraison = s.idlivraison
+-- and c.idpanier = p.idpanier
+-- and p.idpanier = s.idpanier
+-- and c.iduser = u.iduser
+-- and u.iduser = s.iduser
+-- and u.iduser = 1;
+
+-- select l.idlivraison, l.dateExpedition, l.datePrevu, l.serviceLivraison, l.adresse, l.typeLivraison
+-- from livraison l, user u, choisir c
+-- where c.idlivraison = l.idlivraison
+-- and c.iduser = u.iduser
+-- and u.iduser = 1;
+
+
+-----------------------------------------------Fin insertions---------------------------------------------------------------------
 
 -------------------------------------------Debut vues---------------------------------------------------------
 
