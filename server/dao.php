@@ -88,19 +88,12 @@ class DAO {
 
 	public function connection()
 	{
-<<<<<<< HEAD
-		$email = $_GET['email'];
-		$mdp = $_GET['mdp'];
-		$query="select email, mdp from user where email=".$email."and mdp=".$mdp.";";
-		if(mysqli_query($this->conn, $query))
-=======
 		$email = $_POST['email'];
 		$mdp = $_POST['mdp'];
 		$query="select iduser, email, mdp from user where email='".$email."' and mdp='".$mdp."';";
 		$result = mysqli_query($this->conn, $query);
 		$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		if($data)
->>>>>>> 62f94634f360cb45215f9df424106bc2bf8d5f62
 		{
 			$response=array(
 				'status' => 200,
