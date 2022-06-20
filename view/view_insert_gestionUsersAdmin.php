@@ -55,6 +55,11 @@
 		</tr>
 
 		<tr id="ligneTab">
+			<td> Login </td> 
+			<td> <input type="text" name="login" value ="<?php if($leUser!=null) echo $leUser['mdp'];?>"></td>
+		</tr>
+
+		<tr id="ligneTab">
 			<td> <input type="reset" name="Annuler" value="Annuler"> </td> 
 			<td> <input type="submit"
 				<?php 

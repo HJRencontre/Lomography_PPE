@@ -10,7 +10,7 @@
 
 <table class="styled-table">
 		<tr id="ligneTab">
-			<td> Id </td> <td> Nom </td> <td> Prenom </td> <td>Adresse</td> <td> Email </td> <td> Mot de passe </td> <td>Droit</td><td>Operations</td>
+			<td> Id </td> <td> Nom </td> <td> Prenom </td> <td>Adresse</td> <td> Email </td> <td> Mot de passe </td> <td>Droit</td><td>Operations</td><td>Login</td>
 		</tr>
 
 		<?php
@@ -24,6 +24,7 @@
 						<td> ".$unUser['email']."</td>
 						<td> ".$unUser['mdp']."</td>
 						<td> ".$unUser['droit']."</td>
+						<td> ".$unUser['login']."</td>
 						 ";
 						
 				if(isset($_SESSION['email']) and $_SESSION['droit']=='admin')

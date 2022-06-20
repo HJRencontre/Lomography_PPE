@@ -8,7 +8,8 @@
                         "prenom"=>$_POST['prenom'], 
 						"adresse"=>$_POST['adresse'],
 						"email"=>$_POST['email'],
-						"mdp"=>$_POST['mdp']
+						"mdp"=>$_POST['mdp'],
+						"login"=>$_POST['login']
 						);
 			$unControleur->creerCompte($tab);
 		}

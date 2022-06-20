@@ -15,7 +15,7 @@ $dao = new DAO($conn, $resource);
 switch($request_method)
 {
     case 'GET':
-        // Retrive ressources
+        // Récupère ressources
         if(!empty($_GET["id"]))
         {
             $id=intval($_GET["id"]);
@@ -28,16 +28,16 @@ switch($request_method)
         break;
     case 'POST':
         // Ajouter une ressources
-        $dao->add();
+        $dao->connection();
         break;
         
     case 'PUT':
-        // Modifier un produit
+        // Modifier
         $id = intval($_GET["id"]);
         $dao->update($id);
         break;    
     case 'DELETE':
-        // Supprimer un produit
+        // Supprimer
         $id = intval($_GET["id"]);
         $dao->delete($id);
         break;

@@ -34,6 +34,7 @@
                     <input type="text" name="email">
                 </td>
             </tr>
+
             <tr id="ligneTab" class="trCreation">
                 <td>
                     Mot de passe
@@ -42,6 +43,16 @@
                     <input type="password" name="mdp">
                 </td>
             </tr>
+
+            <tr id="ligneTab" class="trCreation">
+                <td>
+                    Login
+                </td>
+                <td>
+                    <input type="text" name="login">
+                </td>
+            </tr>
+            
             <tr id="ligneTab" class="boutonsCreation">
                 <td>
                     <input type="submit" name="Creer" value="Créer">

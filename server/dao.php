@@ -83,8 +83,8 @@ class DAO {
 
 	public function connection()
 	{
-		$email = $_POST['email'];
-		$mdp = $_POST['mdp'];
+		$email = $_GET['email'];
+		$mdp = $_GET['mdp'];
 		$query="select email, mdp from user where email=".$email."and mdp=".$mdp.";";
 		if(mysqli_query($this->conn, $query))
 		{

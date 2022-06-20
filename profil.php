@@ -16,6 +16,7 @@
 					<p class='infosperso'>Prénom : ".$_SESSION['prenom']."</p>
 					<p class='infosperso'>Adresse : ".$_SESSION['adresse']."</p>
 					<p class='infosperso'>Email : ".$_SESSION['email']."</p>
+					<p class='infosperso'>Login : ".$_SESSION['login']."</p>
 					<p class='infosperso'>Mot de passe : ".$_SESSION['mdp']."</p>
 				</div>
 				<div class='seDeconnecter'>
@@ -38,8 +39,12 @@
 
 	if(isset($_POST['SeConnecter']))
 	{
-		$where = array(	"email"=>$_POST['email'],
-						"mdp"=> $_POST['mdp']
+		// $where = array(	"email"=>$_POST['email'],
+		//  				"mdp"=> $_POST['mdp'],
+		//  				"login"=>$_POST['login']
+		//  			);
+		$where = array(	"login"=>$_POST['login'],
+						"mdp"=> $_POST['mdp'],
 					);
 		$unControleur->setTable("user");
 		$unUser = $unControleur->selectWhere($where);
@@ -51,6 +56,7 @@
 			$_SESSION['prenom'] = $unUser['prenom'];
 			$_SESSION['adresse'] = $unUser['adresse'];
 			$_SESSION['mdp'] = $unUser['mdp'];
+			$_SESSION['login'] = $unUser['login'];
 			header("Location: index.php?pn=profil");
 		}
 		else

@@ -2,14 +2,24 @@
     <h2> Connectez-vous pour avoir accès à notre boutique</h2>
     <form method="post" action="">
         <table class="tableConnexion">
-            <tr id="ligneTab" class="trEmailMDP">
+            <!-- <tr id="ligneTab" class="trEmailMDP">
                 <td>
                     Email
                 </td>
                 <td>
                     <input type="text" name="email">
                 </td>
+            </tr> -->
+
+            <tr id="ligneTab" class="trEmailMDP">
+                <td>
+                    Login
+                </td>
+                <td>
+                    <input type="text" name="login">
+                </td>
             </tr>
+
             <tr id="ligneTab" class="trEmailMDP">
                 <td>
                     Mot de passe
@@ -18,6 +28,7 @@
                     <input type="password" name="mdp">
                 </td>
             </tr>
+
             <tr id="ligneTab" class="boutonsConnexion">
                 <td>
                     <input type="submit" name="SeConnecter" value="Se connecter">

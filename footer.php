@@ -21,6 +21,15 @@
             </div>
         </div>
         <div class="copyright">
+        <p>Lomography <br>
+            16 rue de Cléry - 75012 Paris</p>
+            <p>
+            Contactez le 3011 depuis la France
+            ou le 0 800 30 30 11 depuis l'étranger
+            (numéros gratuits)
+            </p>
+        </div>
+        <div class="copyright">
             <p>©2021 LOMOGRAPHY</p>
         </div>
     </nav>
